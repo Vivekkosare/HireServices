@@ -14,5 +14,11 @@ namespace HireServices.Features.Customers.GraphQL.Mutations
         {
             return await mediator.Send(new CreateCustomerCommand(input));
         }
+
+        public async Task<Customer> UpdateCustomerAsync([Service] IMediator mediator,
+            [GraphQLType(typeof(CustomerInput))] CustomerInput input, [GraphQLType(typeof(Guid))] Guid customerId)
+        {
+            return await mediator.Send(new UpdateCustomerCommand(customerId, input));
+        }
     }
 }
