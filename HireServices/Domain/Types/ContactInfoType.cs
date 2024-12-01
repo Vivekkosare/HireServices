@@ -1,0 +1,48 @@
+﻿using HireServices.Domain.ValueObjects;
+using HotChocolate.Types;
+using System.ComponentModel.DataAnnotations;
+
+namespace HireServices.Domain.Types
+{
+    public class ContactInfoType : ObjectType<ContactInfo>
+    {
+        protected override void Configure(IObjectTypeDescriptor<ContactInfo> descriptor)
+        {
+            //descriptor.Field(c => c.FirstName)
+            //    .Type<NonNullType<StringType>>()
+            //    .Directive(new StringLengthAttribute(20));
+
+            //descriptor.Field(c => c.LastName)
+            //    .Type<NonNullType<StringType>>()
+            //    .Directive(new StringLengthAttribute(30));
+
+            //descriptor.Field(c => c.Email)
+            //    .Type<NonNullType<StringType>>()
+            //    .Directive(new EmailAddressAttribute());
+
+            //descriptor.Field(c => c.PhoneNumber)
+            //    .Type<NonNullType<StringType>>()
+            //    .Directive(new PhoneAttribute());
+
+            descriptor.Field(c => c.FirstName)
+                .Type<NonNullType<StringType>>()
+                .Description("The first name of the contact.");
+
+            descriptor.Field(c => c.LastName)
+                .Type<NonNullType<StringType>>()
+                .Description("The last name of the contact.");
+
+            descriptor.Field(c => c.Email)
+                .Type<NonNullType<StringType>>()
+                .Description("The email address of the contact.");
+
+            descriptor.Field(c => c.PhoneNumber)
+                .Type<NonNullType<StringType>>()
+                .Description("The phone number of the contact.");
+
+            descriptor.Field(c => c.DateOfBirth)
+                .Type<NonNullType<DateType>>()
+                .Description("The date of birth of the contact.");
+        }
+    }
+}
