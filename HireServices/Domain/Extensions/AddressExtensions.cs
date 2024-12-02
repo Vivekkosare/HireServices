@@ -1,4 +1,5 @@
-﻿using HireServices.Domain.Inputs;
+﻿using HireServices.Domain.DTOs;
+using HireServices.Domain.Inputs;
 using HireServices.Domain.ValueObjects;
 
 namespace HireServices.Domain.Extensions
@@ -19,6 +20,16 @@ namespace HireServices.Domain.Extensions
         public static List<Address> ToAddresses(this List<AddressInput> addressInputs)
         {
             return addressInputs.Select(addressInput => addressInput.ToAddress()).ToList();
+        }
+
+        public static AddressOutput ToAddressOutput(this Address address)
+        {
+            return new AddressOutput(address.Street, 
+                address.City, 
+                address.ZipCode, 
+                address.State, 
+                address.Country, 
+                address.Id);
         }
     }
 }

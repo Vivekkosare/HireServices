@@ -11,6 +11,13 @@
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
         }
+        protected BaseEntity(Guid id, DateTime createdAt, DateTime updatedAt)
+        {
+            Id = id;
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
+        }
+
         public void UpdateModifiedAt()
         {
             UpdatedAt = DateTime.UtcNow;

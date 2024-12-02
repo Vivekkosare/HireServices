@@ -2,8 +2,10 @@
 using HireServices.Domain.Inputs;
 using HireServices.Domain.ValueObjects;
 using HireServices.Features.Customers.Domain.Entities;
+using HireServices.Features.Customers.DTOs;
 using HireServices.Features.Customers.GraphQL.Inputs;
 using System.Text.Json;
+using static HireServices.Features.Customers.DTOs.CustomerOutput;
 
 namespace HireServices.Features.Customers.Extensions
 {
@@ -72,6 +74,15 @@ namespace HireServices.Features.Customers.Extensions
             }
 
             return customerToBeUpdated;
+        }
+
+        public static CustomerOutput ToCustomerOutput(this Customer customer)
+        {
+            return new CustomerOutput(customer.ContactInfo.ToContactInfoOutput(), 
+                customer.Addresses, 
+                customer.Id, 
+                customer.CreatedAt, 
+                customer.UpdatedAt);
         }
     }
 }
