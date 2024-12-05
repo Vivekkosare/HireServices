@@ -2,7 +2,7 @@
 
 namespace HireServices.Features.ServiceProviders.GraphQL.Inputs
 {
-    public class ServiceProviderInput
+    public class ServicesProviderInput
     {
         [GraphQLNonNullType]
         public ContactInfoInput ContactInfoInput { get; set; }

@@ -1,9 +1,10 @@
 ﻿using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
+using HireServices.Features.ServiceProviders.DTOs;
 using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Queries
 {
-    public record GetServiceProvidersQuery(int PageSize): IRequest<List<ServiceProviderOutput>>
+    public record GetServicesProvidersQuery(int PageSize): IRequest<List<ServicesProviderOutput>>
     {
     }
 }

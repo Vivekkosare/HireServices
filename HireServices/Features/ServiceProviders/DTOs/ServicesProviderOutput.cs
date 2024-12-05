@@ -2,14 +2,14 @@
 
 namespace HireServices.Features.ServiceProviders.DTOs
 {
-    public record ServiceProviderOutput
+    public record ServicesProviderOutput
     {
         public ContactInfoOutput ContactInfoOutput { get; init; }
         public AddressOutput? AddressOutput { get; init; }
         public Guid Id { get; init; }
         public DateTime CreatedAt { get; init; }
         public DateTime UpdatedAt { get; init; }
-        public ServiceProviderOutput(ContactInfoOutput contactInfoOutput,
+        public ServicesProviderOutput(ContactInfoOutput contactInfoOutput,
             AddressOutput addressOutput,
             Guid id, DateTime createdAt, DateTime updatedAt)
         {

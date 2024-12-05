@@ -1,4 +1,5 @@
 ﻿using HireServices.Features.ServiceProviders.Domain.ValueObjects;
+using HireServices.Features.ServiceProviders.GraphQL.Inputs;
 
 namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
 {
@@ -10,5 +11,47 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
         public decimal Price { get; set; }
         public TimeSpan Duration { get; set; }
         public Category Category { get; set; }
+
+        public class ServiceBuilder
+        {
+            private Service _service;
+            public ServiceBuilder()
+            {
+                _service = new Service();
+            }
+
+            public ServiceBuilder WithName(string name)
+            {
+                _service.Name = name;
+                return this;
+            }
+            public ServiceBuilder WithDescription(string description)
+            {
+                _service.Description = description;
+                return this;
+            }
+            public ServiceBuilder WithPrice(decimal price)
+            {
+                _service.Price = price;
+                return this;
+            }
+
+            public ServiceBuilder WithDuration(TimeSpan duration)
+            {
+                _service.Duration = duration;
+                return this;
+            }
+
+            public ServiceBuilder WithCategory(Category category)
+            {
+                _service.Category = category;
+                return this;
+            }
+            public Service Build()
+            {
+                return _service;
+            }
+
+        }
     }
 }

@@ -5,31 +5,31 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
 {
-    public class ServiceProvider: BaseEntity
+    public class ServicesProvider: BaseEntity
     {
         public ContactInfo ContactInfo { get; set; }
         public Address Address { get; set; }
 
         public JsonDocument Services { get; set; }
 
-        public class ServiceProviderBuilder
+        public class ServicesProviderBuilder
         {
-            private ServiceProvider _serviceProvider;
-            public ServiceProviderBuilder()
+            private ServicesProvider _serviceProvider;
+            public ServicesProviderBuilder()
             {
-                _serviceProvider = new ServiceProvider();
+                _serviceProvider = new ServicesProvider();
             }
-            public ServiceProviderBuilder WithContactInfo(ContactInfo contactInfo)
+            public ServicesProviderBuilder WithContactInfo(ContactInfo contactInfo)
             {
                 _serviceProvider.ContactInfo = contactInfo;
                 return this;
             }
-            public ServiceProviderBuilder WithAddress(Address address)
+            public ServicesProviderBuilder WithAddress(Address address)
             {
                 _serviceProvider.Address = address;
                 return this;
             }
-            public ServiceProviderBuilder WithServices(List<Service> services)
+            public ServicesProviderBuilder WithServices(List<Service> services)
             {
                 var options = new JsonSerializerOptions
                 {
@@ -38,7 +38,7 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
                 _serviceProvider.Services = JsonDocument.Parse(JsonSerializer.Serialize(services, options));
                 return this;
             }
-            public ServiceProvider Build()
+            public ServicesProvider Build()
             {
                 return _serviceProvider;
             }
