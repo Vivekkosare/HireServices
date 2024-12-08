@@ -1,4 +1,6 @@
 ﻿using HireServices.Features.Customers.Commands;
+using HireServices.Features.Customers.Commands.CreateCustomer;
+using HireServices.Features.Customers.Commands.UpdateCustomer;
 using HireServices.Features.Customers.Domain.Entities;
 using HireServices.Features.Customers.GraphQL.Inputs;
 using HotChocolate;

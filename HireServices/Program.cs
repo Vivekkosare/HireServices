@@ -7,6 +7,11 @@ using HireServices.Features.Customers.GraphQL.Queries;
 using HireServices.Features.Customers.GraphQL.Resolvers;
 using HireServices.Features.Customers.GraphQL.Types;
 using HireServices.Features.Customers.Services;
+using HireServices.Features.ServiceProviders.Data;
+using HireServices.Features.ServiceProviders.GraphQL.Inputs;
+using HireServices.Features.ServiceProviders.GraphQL.Mutations;
+using HireServices.Features.ServiceProviders.GraphQL.Query;
+using HireServices.Features.ServiceProviders.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
@@ -18,20 +23,36 @@ builder.AddServiceDefaults();
 
 
 builder.Services.AddGraphQLServer()
-    .AddQueryType<CustomerQuery>()
-    .AddMutationType<CustomerMutation>()
+    .AddQueryType<Query>()
+    .AddType<CustomerQuery>()
+    .AddType<ServicesProviderQuery>()
+
+    .AddMutationType<Mutation>()
+    .AddType<CustomerMutation>()
+    .AddType<ServicesProviderMutation>()
+
     .AddType<CustomerType>()
     .AddType<ContactInfoType>()
     .AddType<AddressType>()
     .AddType<InputObjectType<CustomerInput>>()
     .AddType<InputObjectType<ContactInfoInput>>()
     .AddType<InputObjectType<AddressInput>>()
-    .AddResolver<CustomerResolvers>();
+    .AddResolver<CustomerResolvers>()
+
+    //.AddQueryType<ServicesProviderQuery>()
+    .AddType<InputObjectType<ServicesProviderInput>>()
+    .AddType<InputObjectType<CategoryInput>>()
+    .AddType<InputObjectType<ServiceInput>>();
+
 
 builder.Services.AddDbContext<CustomerDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDbContext<ServicesProviderDbContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IServicesProviderService, ServicesProviderService>();
 
 
 var app = builder.Build();

@@ -2,7 +2,7 @@
 using HireServices.Features.Customers.GraphQL.Inputs;
 using MediatR;
 
-namespace HireServices.Features.Customers.Commands
+namespace HireServices.Features.Customers.Commands.CreateCustomer
 {
     public record CreateCustomerCommand(CustomerInput Input) : IRequest<Customer>
     {

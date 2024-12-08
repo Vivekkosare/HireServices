@@ -1,11 +1,10 @@
 ﻿using HireServices.Features.Customers.Domain.Entities;
 using HireServices.Features.Customers.DTOs;
 using HireServices.Features.Customers.Extensions;
-using HireServices.Features.Customers.Queries;
 using HireServices.Features.Customers.Services;
 using MediatR;
 
-namespace HireServices.Features.Customers.Handlers
+namespace HireServices.Features.Customers.Queries.GetCustomers
 {
     public class GetCustomersHandler : IRequestHandler<GetCustomersQuery, List<CustomerOutput>>
     {

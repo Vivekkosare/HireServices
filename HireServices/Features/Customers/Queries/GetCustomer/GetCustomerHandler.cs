@@ -1,9 +1,8 @@
 ﻿using HireServices.Features.Customers.Domain.Entities;
-using HireServices.Features.Customers.Queries;
 using HireServices.Features.Customers.Services;
 using MediatR;
 
-namespace HireServices.Features.Customers.Handlers
+namespace HireServices.Features.Customers.Queries.GetCustomer
 {
     public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, Customer>
     {

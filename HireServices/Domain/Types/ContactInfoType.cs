@@ -8,22 +8,6 @@ namespace HireServices.Domain.Types
     {
         protected override void Configure(IObjectTypeDescriptor<ContactInfo> descriptor)
         {
-            //descriptor.Field(c => c.FirstName)
-            //    .Type<NonNullType<StringType>>()
-            //    .Directive(new StringLengthAttribute(20));
-
-            //descriptor.Field(c => c.LastName)
-            //    .Type<NonNullType<StringType>>()
-            //    .Directive(new StringLengthAttribute(30));
-
-            //descriptor.Field(c => c.Email)
-            //    .Type<NonNullType<StringType>>()
-            //    .Directive(new EmailAddressAttribute());
-
-            //descriptor.Field(c => c.PhoneNumber)
-            //    .Type<NonNullType<StringType>>()
-            //    .Directive(new PhoneAttribute());
-
             descriptor.Field(c => c.FirstName)
                 .Type<NonNullType<StringType>>()
                 .Description("The first name of the contact.");

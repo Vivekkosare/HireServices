@@ -2,7 +2,7 @@
 using HireServices.Features.Customers.DTOs;
 using MediatR;
 
-namespace HireServices.Features.Customers.Queries
+namespace HireServices.Features.Customers.Queries.GetCustomers
 {
     public record GetCustomersQuery(int PageSize) : IRequest<List<CustomerOutput>>
     {

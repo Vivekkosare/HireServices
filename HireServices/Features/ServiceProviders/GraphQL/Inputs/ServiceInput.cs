@@ -15,6 +15,6 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Inputs
         public TimeSpan Duration { get; set; }
         
         [GraphQLNonNullType]
-        public Category Category { get; set; }
+        public CategoryInput CategoryInput { get; set; }
     }
 }

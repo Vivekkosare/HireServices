@@ -1,4 +1,5 @@
 ﻿using HireServices.Features.ServiceProviders.Domain.ValueObjects;
+using HireServices.Features.ServiceProviders.Extensions;
 using HireServices.Features.ServiceProviders.GraphQL.Inputs;
 
 namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
@@ -42,9 +43,9 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
                 return this;
             }
 
-            public ServiceBuilder WithCategory(Category category)
+            public ServiceBuilder WithCategory(CategoryInput categoryInput)
             {
-                _service.Category = category;
+                _service.Category = categoryInput.ToCategory();
                 return this;
             }
             public Service Build()

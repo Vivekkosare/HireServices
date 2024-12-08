@@ -7,7 +7,13 @@ namespace HireServices.Features.Customers.Extensions
     {
         public static Service ToService(ServiceInput serviceInput)
         {
-            return new Service(serviceInput.Name, serviceInput.Description, serviceInput.Price, serviceInput.Duration, serviceInput.Category);
+            return new Service.ServiceBuilder()
+                .WithCategory(serviceInput.CategoryInput)
+                .WithPrice(serviceInput.Price)
+                .WithDescription(serviceInput.Description)
+                .WithDuration(serviceInput.Duration)
+                .WithName(serviceInput.Name)
+                .Build();
         }
     }
 }

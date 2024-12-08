@@ -19,11 +19,16 @@ namespace HireServices.Features.ServiceProviders.Services
             return servicesProviderCreated.Entity;
         }
 
-        public async Task DeleteServicesProviderAsync(Guid serviceProviderId)
+        public async Task<bool> DeleteServicesProviderAsync(Guid serviceProviderId)
         {
             var servicesProvider = await GetServicesProviderAsync(serviceProviderId);
+            if (servicesProvider == null)
+            {
+                return false;
+            }
             _providerDbContext.ServiceProviders.Remove(servicesProvider);
             await _providerDbContext.SaveChangesAsync();
+            return true;
         }
 
         public async Task<ServicesProvider?> GetServicesProviderAsync(Guid serviceProviderId)

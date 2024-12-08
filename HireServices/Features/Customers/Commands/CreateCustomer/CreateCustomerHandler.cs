@@ -1,10 +1,9 @@
-﻿using HireServices.Features.Customers.Commands;
-using HireServices.Features.Customers.Domain.Entities;
+﻿using HireServices.Features.Customers.Domain.Entities;
 using HireServices.Features.Customers.Extensions;
 using HireServices.Features.Customers.Services;
 using MediatR;
 
-namespace HireServices.Features.Customers.Handlers
+namespace HireServices.Features.Customers.Commands.CreateCustomer
 {
     public class CreateCustomerHandler(ICustomerService customerService) : IRequestHandler<CreateCustomerCommand, Customer>
     {

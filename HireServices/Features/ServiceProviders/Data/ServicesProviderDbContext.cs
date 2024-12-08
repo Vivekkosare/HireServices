@@ -27,14 +27,13 @@ namespace HireServices.Features.ServiceProviders.Data
                 });
 
             modelBuilder.Entity<ServicesProvider>()
-                .OwnsOne(sp => sp.Address, a =>
-                {
-                    a.Property(p => p.Street).HasColumnName("Street");
-                    a.Property(p => p.City).HasColumnName("City");
-                    a.Property(p => p.State).HasColumnName("State");
-                    a.Property(p => p.ZipCode).HasColumnName("ZipCode");
-                    a.Property(p => p.Country).HasColumnName("Country");
-                });
+                .Property(sp => sp.Address)
+                .HasColumnType("jsonb")
+                .HasConversion(
+                    new ValueConverter<JsonDocument, string>(
+                        v => v != null ? v.RootElement.GetRawText() : string.Empty,
+                        v => !string.IsNullOrEmpty(v) ? JsonDocument.Parse(v, default) : null))
+                .IsRequired(true);
 
             modelBuilder.Entity<ServicesProvider>()
                 .Property(sp => sp.Services)

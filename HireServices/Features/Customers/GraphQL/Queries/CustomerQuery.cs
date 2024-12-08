@@ -1,6 +1,8 @@
 ﻿using HireServices.Features.Customers.Domain.Entities;
 using HireServices.Features.Customers.DTOs;
 using HireServices.Features.Customers.Queries;
+using HireServices.Features.Customers.Queries.GetCustomer;
+using HireServices.Features.Customers.Queries.GetCustomers;
 using HotChocolate;
 using MediatR;
 
