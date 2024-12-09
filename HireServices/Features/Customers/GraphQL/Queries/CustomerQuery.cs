@@ -8,6 +8,11 @@ using MediatR;
 
 namespace HireServices.Features.Customers.GraphQL.Queries
 {
+    [ExtendObjectType(Name = "Query")]
+    public class CustomerQueryExtension : CustomerQuery
+    {
+
+    }
     public class CustomerQuery
     {
         public async Task<List<CustomerOutput>> GetCustomers([Service] IMediator mediator, int pageSize = 10)

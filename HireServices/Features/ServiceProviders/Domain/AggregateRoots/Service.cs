@@ -6,7 +6,7 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
 {
     public class Service
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
@@ -19,6 +19,19 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
             public ServiceBuilder()
             {
                 _service = new Service();
+            }
+
+            public ServiceBuilder WithId(Guid? id)
+            {
+                if (id is null)
+                {
+                    _service.Id = Guid.NewGuid();
+                }
+                else if (id.HasValue)
+                {
+                    _service.Id = id;
+                }
+                return this;
             }
 
             public ServiceBuilder WithName(string name)

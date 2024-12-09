@@ -7,6 +7,7 @@ namespace HireServices.Domain.Types
     {
         protected override void Configure(IObjectTypeDescriptor<Address> descriptor)
         {
+            descriptor.Field(a => a.Id).Type<IdType>();
             descriptor.Field(a => a.Street).Type<NonNullType<StringType>>();
             descriptor.Field(a => a.City).Type<NonNullType<StringType>>();
             descriptor.Field(a => a.State).Type<NonNullType<StringType>>();

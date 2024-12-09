@@ -8,10 +8,15 @@ using MediatR;
 
 namespace HireServices.Features.Customers.GraphQL.Mutations
 {
+    [ExtendObjectType(Name = "Mutation")]
+    public class CustomerMutationExtension : CustomerMutation
+    {
+
+    }
     public class CustomerMutation
     {
         public async Task<Customer> CreateCustomerAsync([Service] IMediator mediator,
-            //[GraphQLType(typeof(CustomerInput))] 
+        //[GraphQLType(typeof(CustomerInput))] 
         CustomerInput input)
         {
             return await mediator.Send(new CreateCustomerCommand(input));

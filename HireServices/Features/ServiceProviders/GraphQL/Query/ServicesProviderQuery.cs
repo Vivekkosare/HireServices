@@ -1,4 +1,5 @@
-﻿using HireServices.Features.ServiceProviders.DTOs;
+﻿using HireServices.Features.Customers.GraphQL.Queries;
+using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.Queries;
 using HireServices.Features.ServiceProviders.Queries.GetServicesProvider;
 using HireServices.Features.ServiceProviders.Queries.GetServicesProviders;
@@ -6,6 +7,11 @@ using MediatR;
 
 namespace HireServices.Features.ServiceProviders.GraphQL.Query
 {
+    [ExtendObjectType(Name = "Query")]
+    public class ServicesProviderQueryExtension : ServicesProviderQuery
+    {
+
+    }
     public class Query
     {
         public string Hello() => "Hello";

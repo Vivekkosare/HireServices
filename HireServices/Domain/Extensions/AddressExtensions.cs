@@ -9,6 +9,7 @@ namespace HireServices.Domain.Extensions
         public static Address ToAddress(this AddressInput addressInput)
         {
             return new Address.AddressBuilder()
+                .WithId(addressInput.Id)
                 .WithStreet(addressInput.Street)
                 .WithCity(addressInput.City)
                 .WithZipCode(addressInput.ZipCode)

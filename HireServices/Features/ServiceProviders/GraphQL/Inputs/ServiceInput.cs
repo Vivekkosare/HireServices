@@ -4,6 +4,7 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Inputs
 {
     public class ServiceInput
     {
+        public Guid? Id { get; set; }
         [GraphQLNonNullType]
         public string Name { get; set; }
         public string Description { get; set; }

@@ -5,6 +5,9 @@ namespace HireServices.Domain.Inputs
 {
     public class AddressInput
     {
+        [GraphQLType(typeof(IdType))]
+        public Guid? Id { get; set; }
+        
         [GraphQLNonNullType]
         public string Street { get; set; }
 

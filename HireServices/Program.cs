@@ -24,12 +24,12 @@ builder.AddServiceDefaults();
 
 builder.Services.AddGraphQLServer()
     .AddQueryType<Query>()
-    .AddType<CustomerQuery>()
-    .AddType<ServicesProviderQuery>()
+    .AddTypeExtension<CustomerQueryExtension>()
+    .AddTypeExtension<ServicesProviderQueryExtension>()
 
     .AddMutationType<Mutation>()
-    .AddType<CustomerMutation>()
-    .AddType<ServicesProviderMutation>()
+    .AddTypeExtension<CustomerMutationExtension>()
+    .AddTypeExtension<ServicesProviderMutationExtension>()
 
     .AddType<CustomerType>()
     .AddType<ContactInfoType>()

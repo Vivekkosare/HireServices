@@ -8,6 +8,7 @@ namespace HireServices.Features.Customers.Extensions
         public static Service ToService(ServiceInput serviceInput)
         {
             return new Service.ServiceBuilder()
+                .WithId(serviceInput.Id)
                 .WithCategory(serviceInput.CategoryInput)
                 .WithPrice(serviceInput.Price)
                 .WithDescription(serviceInput.Description)

@@ -2,7 +2,7 @@
 {
     public class Address
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
         public string State { get; set; }
@@ -15,7 +15,19 @@
             public AddressBuilder()
             {
                 _address = new Address();
-                _address.Id = Guid.NewGuid();
+            }
+
+            public AddressBuilder WithId(Guid? id)
+            {
+                if (id is null)
+                {
+                    _address.Id = Guid.NewGuid();
+                }
+                else if (id.HasValue)
+                {
+                    _address.Id = id;
+                }
+                return this;
             }
             public AddressBuilder WithStreet(string street)
             {

@@ -8,6 +8,10 @@ using MediatR;
 
 namespace HireServices.Features.ServiceProviders.GraphQL.Mutations
 {
+    [ExtendObjectType(Name = "Mutation")]
+    public class ServicesProviderMutationExtension: ServicesProviderMutation
+    {
+    }
     public class Mutation
     {
         public string Echo(string message) => message;
