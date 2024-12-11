@@ -10,7 +10,10 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Types
             base.Configure(descriptor);
             descriptor.Field(sp => sp.Id).Type<NonNullType<IdType>>();
             descriptor.Field(sp => sp.ContactInfo).Type<NonNullType<ContactInfoType>>();
-            descriptor.Field(sp => sp.Services).Type<NonNullType<ListType<>>>
+            descriptor.Field(sp => sp.Address).Type<NonNullType<AddressType>>();
+            descriptor.Field(sp => sp.Services)
+            .ResolveWith<ServicesProviderResolvers>(resolver => resolver.GetServices(default))
+            .Type<NonNullType<ListType<ServiceType>>>();
         }
     }
 }

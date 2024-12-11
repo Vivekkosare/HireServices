@@ -11,6 +11,7 @@ using HireServices.Features.ServiceProviders.Data;
 using HireServices.Features.ServiceProviders.GraphQL.Inputs;
 using HireServices.Features.ServiceProviders.GraphQL.Mutations;
 using HireServices.Features.ServiceProviders.GraphQL.Query;
+using HireServices.Features.ServiceProviders.GraphQL.Types;
 using HireServices.Features.ServiceProviders.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,7 +43,10 @@ builder.Services.AddGraphQLServer()
     //.AddQueryType<ServicesProviderQuery>()
     .AddType<InputObjectType<ServicesProviderInput>>()
     .AddType<InputObjectType<CategoryInput>>()
-    .AddType<InputObjectType<ServiceInput>>();
+    .AddType<InputObjectType<ServiceInput>>()
+    .AddType<ServiceType>()
+    .AddType<ServicesProviderType>();
+    
 
 
 builder.Services.AddDbContext<CustomerDbContext>(options =>
