@@ -10,7 +10,8 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
         public ContactInfo ContactInfo { get; set; }
         public JsonDocument Address { get; set; }
 
-        public JsonDocument Services { get; set; }
+        //public JsonDocument Services { get; set; }
+        public List<string> ServiceTags { get; set; }
 
         public class ServicesProviderBuilder
         {
@@ -34,12 +35,18 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
                 _serviceProvider.Address = JsonDocument.Parse(JsonSerializer.Serialize(address, _options));
                 return this;
             }
-            public ServicesProviderBuilder WithServices(List<Service> services)
+
+            public ServicesProviderBuilder WithServiceTags(IEnumerable<string> serviceTags)
             {
-                
-                _serviceProvider.Services = JsonDocument.Parse(JsonSerializer.Serialize(services, _options));
+                _serviceProvider.ServiceTags = serviceTags.ToList();
                 return this;
             }
+            //public ServicesProviderBuilder WithServices(List<Service> services)
+            //{
+                
+            //    _serviceProvider.Services = JsonDocument.Parse(JsonSerializer.Serialize(services, _options));
+            //    return this;
+            //}
             public ServicesProvider Build()
             {
                 return _serviceProvider;

@@ -14,8 +14,6 @@ using HireServices.Features.ServiceProviders.GraphQL.Query;
 using HireServices.Features.ServiceProviders.GraphQL.Types;
 using HireServices.Features.ServiceProviders.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -44,6 +42,7 @@ builder.Services.AddGraphQLServer()
     .AddType<InputObjectType<ServicesProviderInput>>()
     .AddType<InputObjectType<CategoryInput>>()
     .AddType<InputObjectType<ServiceInput>>()
+    //.AddType<CustomTimeSpanType>()
     .AddType<ServiceType>()
     .AddType<ServicesProviderType>();
     

@@ -8,13 +8,13 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Inputs
         [GraphQLNonNullType]
         public string Name { get; set; }
         public string Description { get; set; }
-        
+
         [GraphQLNonNullType]
         public decimal Price { get; set; }
-        
+
         [GraphQLNonNullType]
-        public TimeSpan Duration { get; set; }
-        
+        public string Duration { get; set; }
+
         [GraphQLNonNullType]
         public CategoryInput CategoryInput { get; set; }
     }

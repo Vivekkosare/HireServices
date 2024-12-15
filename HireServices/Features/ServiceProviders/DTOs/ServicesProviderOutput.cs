@@ -9,7 +9,7 @@ namespace HireServices.Features.ServiceProviders.DTOs
     {
         public ContactInfoOutput ContactInfoOutput { get; set; }
         public AddressOutput? AddressOutput { get; set; }
-        public List<ServiceOutput>? ServicesOutput { get; set; }
+        public List<string>? ServiceTags { get; set; }
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
@@ -40,9 +40,14 @@ namespace HireServices.Features.ServiceProviders.DTOs
                 _serviceProviderOutput.AddressOutput = address is not null? JsonSerializer.Deserialize<AddressOutput>(address.RootElement.GetRawText()) : null;
                 return this;
             }
-            public ServicesProviderOutputBuilder WithServicesOutput(JsonDocument servicesDocument)
+            //public ServicesProviderOutputBuilder WithServicesOutput(JsonDocument servicesDocument)
+            //{
+            //    _serviceProviderOutput.ServicesOutput = servicesDocument is not null ? JsonSerializer.Deserialize<List<ServicesProviderServiceOutput>>(servicesDocument.RootElement.GetRawText()) : null;
+            //    return this;
+            //}
+            public ServicesProviderOutputBuilder WithServiceTags(List<string> serviceTags)
             {
-                _serviceProviderOutput.ServicesOutput = servicesDocument is not null ? JsonSerializer.Deserialize<List<ServiceOutput>>(servicesDocument.RootElement.GetRawText()) : null;
+                _serviceProviderOutput.ServiceTags = serviceTags;
                 return this;
             }
             public ServicesProviderOutputBuilder WithId(Guid id)

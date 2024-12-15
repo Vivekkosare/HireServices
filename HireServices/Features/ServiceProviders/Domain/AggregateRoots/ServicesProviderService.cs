@@ -4,24 +4,29 @@ using HireServices.Features.ServiceProviders.GraphQL.Inputs;
 
 namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
 {
-    public class Service
+    public class ServicesProviderService
     {
+
+        [GraphQLType(typeof(IdType))]
         public Guid? Id { get; set; }
+        
+        [GraphQLType(typeof(IdType))]
+        public Guid ServiceProviderId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public TimeSpan Duration { get; set; }
         public Category Category { get; set; }
 
-        public class ServiceBuilder
+        public class ServicesProviderServiceBuilder
         {
-            private Service _service;
-            public ServiceBuilder()
+            private ServicesProviderService _service;
+            public ServicesProviderServiceBuilder()
             {
-                _service = new Service();
+                _service = new ServicesProviderService();
             }
 
-            public ServiceBuilder WithId(Guid? id)
+            public ServicesProviderServiceBuilder WithId(Guid? id)
             {
                 if (id is null)
                 {
@@ -34,34 +39,41 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
                 return this;
             }
 
-            public ServiceBuilder WithName(string name)
+            public ServicesProviderServiceBuilder WithName(string name)
             {
                 _service.Name = name;
                 return this;
             }
-            public ServiceBuilder WithDescription(string description)
+            public ServicesProviderServiceBuilder WithDescription(string description)
             {
                 _service.Description = description;
                 return this;
             }
-            public ServiceBuilder WithPrice(decimal price)
+            public ServicesProviderServiceBuilder WithPrice(decimal price)
             {
                 _service.Price = price;
                 return this;
             }
 
-            public ServiceBuilder WithDuration(TimeSpan duration)
+            public ServicesProviderServiceBuilder WithDuration(string duration)
             {
-                _service.Duration = duration;
+                if (string.IsNullOrEmpty(duration))
+                {
+                    _service.Duration = default;
+                }
+                else
+                {
+                    _service.Duration = TimeSpan.Parse(duration);
+                }
                 return this;
             }
 
-            public ServiceBuilder WithCategory(CategoryInput categoryInput)
+            public ServicesProviderServiceBuilder WithCategory(CategoryInput categoryInput)
             {
                 _service.Category = categoryInput.ToCategory();
                 return this;
             }
-            public Service Build()
+            public ServicesProviderService Build()
             {
                 return _service;
             }

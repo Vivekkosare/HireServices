@@ -5,9 +5,9 @@ namespace HireServices.Features.Customers.Extensions
 {
     public static class ServiceExtensions
     {
-        public static Service ToService(ServiceInput serviceInput)
+        public static ServicesProviderService ToService(ServiceInput serviceInput)
         {
-            return new Service.ServiceBuilder()
+            return new ServicesProviderService.ServicesProviderServiceBuilder()
                 .WithId(serviceInput.Id)
                 .WithCategory(serviceInput.CategoryInput)
                 .WithPrice(serviceInput.Price)

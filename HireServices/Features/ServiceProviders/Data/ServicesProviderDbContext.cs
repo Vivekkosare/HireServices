@@ -8,6 +8,7 @@ namespace HireServices.Features.ServiceProviders.Data
     public class ServicesProviderDbContext(DbContextOptions<ServicesProviderDbContext> options) : DbContext(options)
     {
         public DbSet<ServicesProvider> ServiceProviders { get; set; }
+        public DbSet<ServicesProviderService> ServicesProviderServices { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -36,13 +37,18 @@ namespace HireServices.Features.ServiceProviders.Data
                 .IsRequired(true);
 
             modelBuilder.Entity<ServicesProvider>()
-                .Property(sp => sp.Services)
-                .HasColumnType("jsonb")
-                .HasConversion(
-                    new ValueConverter<JsonDocument, string>(
-                        v => v != null ? v.RootElement.GetRawText() : string.Empty,
-                        v => !string.IsNullOrEmpty(v) ? JsonDocument.Parse(v, default): null))
+                .Property(sp => sp.ServiceTags)
+                .HasColumnType("TEXT[]")
                 .IsRequired(true);
+
+            //modelBuilder.Entity<ServicesProvider>()
+            //    .Property(sp => sp.Services)
+            //    .HasColumnType("jsonb")
+            //    .HasConversion(
+            //        new ValueConverter<JsonDocument, string>(
+            //            v => v != null ? v.RootElement.GetRawText() : string.Empty,
+            //            v => !string.IsNullOrEmpty(v) ? JsonDocument.Parse(v, default): null))
+            //    .IsRequired(true);
         }
     }
 }

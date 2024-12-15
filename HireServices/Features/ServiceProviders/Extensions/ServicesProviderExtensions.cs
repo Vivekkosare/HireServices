@@ -8,20 +8,22 @@ namespace HireServices.Features.ServiceProviders.Extensions
     {
         public static Domain.AggregateRoots.ServicesProvider ToServiceProvider(this ServicesProviderInput serviceProviderInput)
         {
-            
+            //var services = serviceProviderInput.ServicesInput.Select(serviceInput =>
+            //    {
+            //        return new Domain.AggregateRoots.ServicesProviderService.ServicesProviderServiceBuilder()
+            //        .WithName(serviceInput.Name)
+            //        .WithDescription(serviceInput.Description)
+            //        .WithPrice(serviceInput.Price)
+            //        .WithDuration(serviceInput.Duration)
+            //        .WithCategory(serviceInput.CategoryInput)
+            //        .Build();
+            //    }).ToList();
+            var serviceTags = serviceProviderInput.ServicesInput.Select(s => s.Name);
+
             return new Domain.AggregateRoots.ServicesProvider.ServicesProviderBuilder()
                 .WithContactInfo(serviceProviderInput.ContactInfoInput.ToContactInfo())
                 .WithAddress(serviceProviderInput.AddressInput.ToAddress())
-                .WithServices(serviceProviderInput.ServicesInput.Select(serviceInput =>
-                {
-                    return new Domain.AggregateRoots.Service.ServiceBuilder()
-                    .WithName(serviceInput.Name)
-                    .WithDescription(serviceInput.Description)
-                    .WithPrice(serviceInput.Price)
-                    .WithDuration(serviceInput.Duration)
-                    .WithCategory(serviceInput.CategoryInput)
-                    .Build();
-                }).ToList())
+                .WithServiceTags(serviceTags)
                 .Build();
         }
 
@@ -31,7 +33,7 @@ namespace HireServices.Features.ServiceProviders.Extensions
                 .WithId(serviceProvider.Id)
                 .WithContactInfoOutput(serviceProvider.ContactInfo)
                 .WithAddressOutput(serviceProvider.Address)
-                .WithServicesOutput(serviceProvider.Services)
+                .WithServiceTags(serviceProvider.ServiceTags)
                 .WithCreatedAt(serviceProvider.CreatedAt)
                 .WithUpdatedAt(serviceProvider.UpdatedAt)
                 .Build();
