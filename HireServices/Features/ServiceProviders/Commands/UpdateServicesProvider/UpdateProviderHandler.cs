@@ -5,22 +5,22 @@ using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Commands.UpdateServicesProvider
 {
-    public class UpdateServicesProviderHandler : IRequestHandler<UpdateServicesProviderCommand, ServicesProviderOutput>
+    public class UpdateProviderHandler : IRequestHandler<UpdateProviderCommand, ProviderOutput>
     {
-        private readonly IServicesProviderService _providerService;
+        private readonly ISProviderService _providerService;
 
-        public UpdateServicesProviderHandler(IServicesProviderService providerService)
+        public UpdateProviderHandler(ISProviderService providerService)
         {
             _providerService = providerService;
         }
-        public async Task<ServicesProviderOutput> Handle(UpdateServicesProviderCommand request, CancellationToken cancellationToken)
+        public async Task<ProviderOutput> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
         {
-            var serviceProvider = await _providerService.GetServicesProviderAsync(request.serviceProviderId);
+            var serviceProvider = await _providerService.GetProviderAsync(request.serviceProviderId);
             if (serviceProvider == null)
             {
                 throw new Exception("Services provider not found to update");
             }
-            var servicesProviderUpdated = await _providerService.UpdateServicesProviderAsync(request.serviceProviderId, serviceProvider);
+            var servicesProviderUpdated = await _providerService.UpdateProviderAsync(request.serviceProviderId, serviceProvider);
             if (servicesProviderUpdated == null)
             {
                 throw new Exception("Error updating services provider");

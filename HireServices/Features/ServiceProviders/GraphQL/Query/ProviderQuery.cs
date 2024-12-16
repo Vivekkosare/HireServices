@@ -8,7 +8,7 @@ using MediatR;
 namespace HireServices.Features.ServiceProviders.GraphQL.Query
 {
     [ExtendObjectType(Name = "Query")]
-    public class ServicesProviderQueryExtension : ServicesProviderQuery
+    public class ProviderQueryExtension : ProviderQuery
     {
 
     }
@@ -16,16 +16,16 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Query
     {
         public string Hello() => "Hello";
     }
-    public class ServicesProviderQuery
+    public class ProviderQuery
     {
-        public async Task<List<ServicesProviderOutput>> GetServicesProviders([Service] IMediator mediator, int pageSize = 10)
+        public async Task<List<ProviderOutput>> GetServicesProviders([Service] IMediator mediator, int pageSize = 10)
         {
-            return await mediator.Send(new GetServicesProvidersQuery(pageSize));
+            return await mediator.Send(new GetProvidersQuery(pageSize));
         }
 
-        public async Task<ServicesProviderOutput> GetServicesProvider([Service] IMediator mediator, Guid servicesProviderId)
+        public async Task<ProviderOutput> GetServicesProvider([Service] IMediator mediator, Guid servicesProviderId)
         {
-            return await mediator.Send(new GetServicesProviderQuery(servicesProviderId));
+            return await mediator.Send(new GetProviderQuery(servicesProviderId));
         }
     }
 }

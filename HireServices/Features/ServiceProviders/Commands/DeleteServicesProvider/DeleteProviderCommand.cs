@@ -2,7 +2,7 @@
 
 namespace HireServices.Features.ServiceProviders.Commands.DeleteServicesProvider
 {
-    public record DeleteServicesProviderCommand(Guid servicesProviderId) : IRequest<bool>
+    public record DeleteProviderCommand(Guid servicesProviderId) : IRequest<bool>
     {
     }
 }

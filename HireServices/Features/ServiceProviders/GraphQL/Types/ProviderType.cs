@@ -3,9 +3,9 @@ using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
 
 namespace HireServices.Features.ServiceProviders.GraphQL.Types
 {
-    public class ServicesProviderType :ObjectType<ServicesProvider>
+    public class ProviderType :ObjectType<Provider>
     {
-        protected override void Configure(IObjectTypeDescriptor<ServicesProvider> descriptor)
+        protected override void Configure(IObjectTypeDescriptor<Provider> descriptor)
         {
             base.Configure(descriptor);
             descriptor.Field(sp => sp.Id).Type<NonNullType<IdType>>();

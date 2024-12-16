@@ -3,7 +3,7 @@ using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
 {
-    public record CreateServicesProviderCommand(ServicesProviderInput Input) : IRequest<DTOs.ServicesProviderOutput>
+    public record CreateProviderCommand(ProviderInput Input) : IRequest<DTOs.ProviderOutput>
     {
     }
 }

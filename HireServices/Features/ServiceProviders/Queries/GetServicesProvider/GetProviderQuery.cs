@@ -4,7 +4,7 @@ using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Queries.GetServicesProvider
 {
-    public record GetServicesProviderQuery(Guid customerId) : IRequest<ServicesProviderOutput>
+    public record GetProviderQuery(Guid customerId) : IRequest<ProviderOutput>
     {
     }
 }

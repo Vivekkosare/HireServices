@@ -1,10 +1,12 @@
-﻿using HireServices.Features.ServiceProviders.Domain.ValueObjects;
+﻿using HireServices.Domain.Common;
+using HireServices.Features.ServiceProviders.Domain.ValueObjects;
 using HireServices.Features.ServiceProviders.Extensions;
 using HireServices.Features.ServiceProviders.GraphQL.Inputs;
+using System.Text.Json;
 
 namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
 {
-    public class ServicesProviderService
+    public class ProviderService: BaseEntity
     {
 
         [GraphQLType(typeof(IdType))]
@@ -16,17 +18,17 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
         public string Description { get; set; }
         public decimal Price { get; set; }
         public TimeSpan Duration { get; set; }
-        public Category Category { get; set; }
+        public JsonDocument Category { get; set; }
 
-        public class ServicesProviderServiceBuilder
+        public class ProviderServiceBuilder
         {
-            private ServicesProviderService _service;
-            public ServicesProviderServiceBuilder()
+            private ProviderService _service;
+            public ProviderServiceBuilder()
             {
-                _service = new ServicesProviderService();
+                _service = new ProviderService();
             }
 
-            public ServicesProviderServiceBuilder WithId(Guid? id)
+            public ProviderServiceBuilder WithId(Guid? id)
             {
                 if (id is null)
                 {
@@ -39,23 +41,23 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
                 return this;
             }
 
-            public ServicesProviderServiceBuilder WithName(string name)
+            public ProviderServiceBuilder WithName(string name)
             {
                 _service.Name = name;
                 return this;
             }
-            public ServicesProviderServiceBuilder WithDescription(string description)
+            public ProviderServiceBuilder WithDescription(string description)
             {
                 _service.Description = description;
                 return this;
             }
-            public ServicesProviderServiceBuilder WithPrice(decimal price)
+            public ProviderServiceBuilder WithPrice(decimal price)
             {
                 _service.Price = price;
                 return this;
             }
 
-            public ServicesProviderServiceBuilder WithDuration(string duration)
+            public ProviderServiceBuilder WithDuration(string duration)
             {
                 if (string.IsNullOrEmpty(duration))
                 {
@@ -68,12 +70,12 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
                 return this;
             }
 
-            public ServicesProviderServiceBuilder WithCategory(CategoryInput categoryInput)
+            public ProviderServiceBuilder WithCategory(CategoryInput categoryInput)
             {
-                _service.Category = categoryInput.ToCategory();
+                _service.Category = JsonDocument.Parse(JsonSerializer.Serialize<CategoryInput>(categoryInput));
                 return this;
             }
-            public ServicesProviderService Build()
+            public ProviderService Build()
             {
                 return _service;
             }

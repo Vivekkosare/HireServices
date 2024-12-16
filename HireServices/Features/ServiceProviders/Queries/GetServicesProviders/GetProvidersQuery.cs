@@ -4,7 +4,7 @@ using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Queries.GetServicesProviders
 {
-    public record GetServicesProvidersQuery(int PageSize) : IRequest<List<ServicesProviderOutput>>
+    public record GetProvidersQuery(int PageSize) : IRequest<List<ProviderOutput>>
     {
     }
 }

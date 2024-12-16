@@ -5,17 +5,17 @@ using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
 {
-    public class CreateServicesProviderHandler : IRequestHandler<CreateServicesProviderCommand, ServicesProviderOutput>
+    public class CreateProviderHandler : IRequestHandler<CreateProviderCommand, ProviderOutput>
     {
-        private readonly IServicesProviderService _providerService;
+        private readonly ISProviderService _providerService;
 
-        public CreateServicesProviderHandler(IServicesProviderService providerService)
+        public CreateProviderHandler(ISProviderService providerService)
         {
             _providerService = providerService;
         }
-        public async Task<ServicesProviderOutput> Handle(CreateServicesProviderCommand request, CancellationToken cancellationToken)
+        public async Task<ProviderOutput> Handle(CreateProviderCommand request, CancellationToken cancellationToken)
         {
-            var servicesProvider = await _providerService.CreateServicesProviderAsync(request.Input.ToServiceProvider());
+            var servicesProvider = await _providerService.CreateProviderAsync(request.Input.ToServiceProvider());
             if (servicesProvider == null)
             {
                 throw new Exception("Error creating services provider");

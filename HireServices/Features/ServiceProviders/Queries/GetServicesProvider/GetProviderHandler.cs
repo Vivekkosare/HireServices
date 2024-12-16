@@ -5,17 +5,17 @@ using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Queries.GetServicesProvider
 {
-    public class GetServicesProviderHandler : IRequestHandler<GetServicesProviderQuery, ServicesProviderOutput>
+    public class GetProviderHandler : IRequestHandler<GetProviderQuery, ProviderOutput>
     {
-        private readonly IServicesProviderService _providerService;
+        private readonly ISProviderService _providerService;
 
-        public GetServicesProviderHandler(IServicesProviderService providerService)
+        public GetProviderHandler(ISProviderService providerService)
         {
             _providerService = providerService;
         }
-        public async Task<ServicesProviderOutput> Handle(GetServicesProviderQuery request, CancellationToken cancellationToken)
+        public async Task<ProviderOutput> Handle(GetProviderQuery request, CancellationToken cancellationToken)
         {
-            var servicesProvider = await _providerService.GetServicesProviderAsync(request.customerId);
+            var servicesProvider = await _providerService.GetProviderAsync(request.customerId);
             if (servicesProvider == null)
             {
                 throw new ArgumentNullException(nameof(servicesProvider), "Service provider not found.");

@@ -2,7 +2,7 @@
 
 namespace HireServices.Features.ServiceProviders.DTOs
 {
-    public record ServicesProviderServiceOutput
+    public record ProviderServiceOutput
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -10,7 +10,7 @@ namespace HireServices.Features.ServiceProviders.DTOs
         public decimal Price { get; set; }
         public TimeSpan Duration { get; set; }
         public Category Category { get; set; }
-        public ServicesProviderServiceOutput(Guid id, string name, string description, decimal price, TimeSpan duration, Category category)
+        public ProviderServiceOutput(Guid id, string name, string description, decimal price, TimeSpan duration, Category category)
         {
             Id = id;
             Name = name;

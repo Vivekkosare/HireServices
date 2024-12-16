@@ -5,49 +5,54 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
 {
-    public class ServicesProvider: BaseEntity
+    public class Provider: BaseEntity
     {
         public ContactInfo ContactInfo { get; set; }
         public JsonDocument Address { get; set; }
-
-        //public JsonDocument Services { get; set; }
         public List<string> ServiceTags { get; set; }
+        public List<string> ServiceCategories { get; set; }
+        public List<ProviderService> ProviderServices { get; set; }
+        
 
-        public class ServicesProviderBuilder
+        public class ProviderBuilder
         {
-            private ServicesProvider _serviceProvider;
+            private Provider _serviceProvider;
             private JsonSerializerOptions _options;
-            public ServicesProviderBuilder()
+            public ProviderBuilder()
             {
-                _serviceProvider = new ServicesProvider();
+                _serviceProvider = new Provider();
                 _options = new JsonSerializerOptions
                 {
                     TypeInfoResolver = new DefaultJsonTypeInfoResolver()
                 };
             }
-            public ServicesProviderBuilder WithContactInfo(ContactInfo contactInfo)
+            public ProviderBuilder WithContactInfo(ContactInfo contactInfo)
             {
                 _serviceProvider.ContactInfo = contactInfo;
                 return this;
             }
-            public ServicesProviderBuilder WithAddress(Address address)
+            public ProviderBuilder WithAddress(Address address)
             {
                 _serviceProvider.Address = JsonDocument.Parse(JsonSerializer.Serialize(address, _options));
                 return this;
             }
 
-            public ServicesProviderBuilder WithServiceTags(IEnumerable<string> serviceTags)
+            public ProviderBuilder WithServiceTags(IEnumerable<string> serviceTags)
             {
                 _serviceProvider.ServiceTags = serviceTags.ToList();
                 return this;
             }
-            //public ServicesProviderBuilder WithServices(List<Service> services)
-            //{
-                
-            //    _serviceProvider.Services = JsonDocument.Parse(JsonSerializer.Serialize(services, _options));
-            //    return this;
-            //}
-            public ServicesProvider Build()
+            public ProviderBuilder WithServiceCategories(IEnumerable<string> serviceCategories)
+            {
+                _serviceProvider.ServiceCategories = serviceCategories.ToList();
+                return this;
+            }
+            public ProviderBuilder WithProviderServices(IEnumerable<ProviderService> providerServices)
+            {
+                _serviceProvider.ProviderServices = providerServices.ToList();
+                return this;
+            }
+            public Provider Build()
             {
                 return _serviceProvider;
             }

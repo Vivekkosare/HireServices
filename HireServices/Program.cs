@@ -24,11 +24,11 @@ builder.AddServiceDefaults();
 builder.Services.AddGraphQLServer()
     .AddQueryType<Query>()
     .AddTypeExtension<CustomerQueryExtension>()
-    .AddTypeExtension<ServicesProviderQueryExtension>()
+    .AddTypeExtension<ProviderQueryExtension>()
 
     .AddMutationType<Mutation>()
     .AddTypeExtension<CustomerMutationExtension>()
-    .AddTypeExtension<ServicesProviderMutationExtension>()
+    .AddTypeExtension<ProviderMutationExtension>()
 
     .AddType<CustomerType>()
     .AddType<ContactInfoType>()
@@ -39,23 +39,23 @@ builder.Services.AddGraphQLServer()
     .AddResolver<CustomerResolvers>()
 
     //.AddQueryType<ServicesProviderQuery>()
-    .AddType<InputObjectType<ServicesProviderInput>>()
+    .AddType<InputObjectType<ProviderInput>>()
     .AddType<InputObjectType<CategoryInput>>()
     .AddType<InputObjectType<ServiceInput>>()
     //.AddType<CustomTimeSpanType>()
     .AddType<ServiceType>()
-    .AddType<ServicesProviderType>();
+    .AddType<ProviderType>();
     
 
 
 builder.Services.AddDbContext<CustomerDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDbContext<ServicesProviderDbContext>(options =>
+builder.Services.AddDbContext<ProviderDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<IServicesProviderService, ServicesProviderService>();
+builder.Services.AddScoped<ISProviderService, SProviderService>();
 
 
 var app = builder.Build();
