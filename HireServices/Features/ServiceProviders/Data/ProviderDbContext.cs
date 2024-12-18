@@ -46,16 +46,25 @@ namespace HireServices.Features.ServiceProviders.Data
                 .HasMethod("gin");
 
             modelBuilder.Entity<Provider>()
-                .HasMany(p => p.ServiceCategories)
+                .Property(p => p.ServiceCategories)
+                .HasColumnType("TEXT[]")
+                .IsRequired(true);
+
+            modelBuilder.Entity<Provider>()
+                .HasIndex(p => p.ServiceCategories)               
+                .HasMethod("gin");
+
+            modelBuilder.Entity<Provider>()
+                .HasMany(p => p.ProviderServices)
                 .WithOne()
                 .HasForeignKey("ProviderId");
+
+            //***************************************--------PROVIDER SERVICE--------***************************************//
 
 
             modelBuilder.Entity<ProviderService>()
                 .Property(sps => sps.Id)
-                .ValueGeneratedOnAdd();
-
-            
+                .ValueGeneratedOnAdd();            
 
             modelBuilder.Entity<ProviderService>()
                 .HasOne<Provider>()

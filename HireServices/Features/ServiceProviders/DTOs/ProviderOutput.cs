@@ -11,6 +11,7 @@ namespace HireServices.Features.ServiceProviders.DTOs
         public AddressOutput? AddressOutput { get; set; }
         public List<string>? ServiceTags { get; set; }
         public List<string>? ServiceCategories { get; set; }
+        public List<ProviderServiceOutput>? HighlightedServices { get; set; }
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
@@ -54,6 +55,11 @@ namespace HireServices.Features.ServiceProviders.DTOs
             public ProviderOutputBuilder WithUpdatedAt(DateTime updatedAt)
             {
                 _serviceProviderOutput.UpdatedAt = updatedAt;
+                return this;
+            }
+            public ProviderOutputBuilder WithHightlightedServices(JsonDocument highlightedServices)
+            {
+                _serviceProviderOutput.HighlightedServices = highlightedServices;
                 return this;
             }
             public ProviderOutput Build()

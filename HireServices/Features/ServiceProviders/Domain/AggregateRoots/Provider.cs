@@ -12,7 +12,10 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
         public List<string> ServiceTags { get; set; }
         public List<string> ServiceCategories { get; set; }
         public List<ProviderService> ProviderServices { get; set; }
-        
+        public JsonDocument HighlightedServices { get; set; }
+        public decimal AverageRating { get; set; }
+        public JsonDocument LatestReviews { get; set; }
+
 
         public class ProviderBuilder
         {
@@ -50,6 +53,21 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
             public ProviderBuilder WithProviderServices(IEnumerable<ProviderService> providerServices)
             {
                 _serviceProvider.ProviderServices = providerServices.ToList();
+                return this;
+            }
+            public ProviderBuilder WithHighlightedServices(List<ProviderService> highlightedServices)
+            {
+                _serviceProvider.HighlightedServices = JsonDocument.Parse(JsonSerializer.Serialize(highlightedServices, _options));
+                return this;
+            }
+            public ProviderBuilder WithAverageRating(decimal averageRating)
+            {
+                _serviceProvider.AverageRating = averageRating;
+                return this;
+            }
+            public ProviderBuilder WithLatestTwoReviews(LatestProviderReviews latestReviews)
+            {
+                _serviceProvider.LatestReviews = JsonDocument.Parse(JsonSerializer.Serialize(latestReviews, _options));
                 return this;
             }
             public Provider Build()
