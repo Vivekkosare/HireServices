@@ -8,6 +8,7 @@ using HireServices.Features.Customers.GraphQL.Resolvers;
 using HireServices.Features.Customers.GraphQL.Types;
 using HireServices.Features.Customers.Services;
 using HireServices.Features.ServiceProviders.Data;
+using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.GraphQL.Inputs;
 using HireServices.Features.ServiceProviders.GraphQL.Mutations;
 using HireServices.Features.ServiceProviders.GraphQL.Query;
@@ -41,11 +42,18 @@ builder.Services.AddGraphQLServer()
     //.AddQueryType<ServicesProviderQuery>()
     .AddType<InputObjectType<ProviderInput>>()
     .AddType<InputObjectType<CategoryInput>>()
-    .AddType<InputObjectType<ServiceInput>>()
+    .AddType<InputObjectType<ProviderServiceInput>>()
+    .AddType<InputObjectType<ProviderReviewInput>>()
     //.AddType<CustomTimeSpanType>()
     .AddType<ServiceType>()
-    .AddType<ProviderType>();
-    
+    .AddType<ProviderType>()
+
+    .AddType<CategoryOutput>()
+    .AddType<ProviderOutput>()
+    .AddType<ProviderReviewOutput>()
+    .AddType<ProviderServiceOutput>();
+
+
 
 
 builder.Services.AddDbContext<CustomerDbContext>(options =>

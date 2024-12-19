@@ -1,7 +1,9 @@
 ﻿using HireServices.Domain.DTOs;
 using HireServices.Domain.Extensions;
 using HireServices.Domain.ValueObjects;
+using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
 using System.Text.Json;
+using static HireServices.Features.ServiceProviders.Domain.AggregateRoots.Provider;
 
 namespace HireServices.Features.ServiceProviders.DTOs
 {
@@ -12,6 +14,9 @@ namespace HireServices.Features.ServiceProviders.DTOs
         public List<string>? ServiceTags { get; set; }
         public List<string>? ServiceCategories { get; set; }
         public List<ProviderServiceOutput>? HighlightedServices { get; set; }
+        public decimal AverageRating { get; set; }
+        public int CustomersServed { get; set; }
+        public List<ProviderReviewOutput>? LatestReviews { get; set; }
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
@@ -29,7 +34,7 @@ namespace HireServices.Features.ServiceProviders.DTOs
             }
             public ProviderOutputBuilder WithAddressOutput(JsonDocument address)
             {
-                _serviceProviderOutput.AddressOutput = address is not null? JsonSerializer.Deserialize<AddressOutput>(address.RootElement.GetRawText()) : null;
+                _serviceProviderOutput.AddressOutput = address is not null? JsonSerializer.Deserialize<AddressOutput>(address.RootElement.GetRawText()) : default;
                 return this;
             }
             public ProviderOutputBuilder WithServiceTags(List<string> serviceTags)
@@ -57,9 +62,25 @@ namespace HireServices.Features.ServiceProviders.DTOs
                 _serviceProviderOutput.UpdatedAt = updatedAt;
                 return this;
             }
-            public ProviderOutputBuilder WithHightlightedServices(JsonDocument highlightedServices)
+            public ProviderOutputBuilder WithHighlightedServices(JsonDocument highlightedServices)
             {
-                _serviceProviderOutput.HighlightedServices = highlightedServices;
+                _serviceProviderOutput.HighlightedServices = highlightedServices is not null ? JsonSerializer.Deserialize<List<ProviderServiceOutput>>(highlightedServices.RootElement.GetRawText()) : default;
+                return this;
+            }
+            public ProviderOutputBuilder WithAverageRating(decimal averageRating)
+            {
+                _serviceProviderOutput.AverageRating = averageRating;
+                return this;
+            }
+            public ProviderOutputBuilder WithLatestReviews(JsonDocument latestReviews)
+            {
+                _serviceProviderOutput.LatestReviews = latestReviews is not null ? 
+                    JsonSerializer.Deserialize<List<ProviderReviewOutput>>(latestReviews.RootElement.GetRawText()) : default;
+                return this;
+            }
+            public ProviderOutputBuilder WithCustomersServed(int customersServed)
+            {
+                _serviceProviderOutput.CustomersServed = customersServed;
                 return this;
             }
             public ProviderOutput Build()

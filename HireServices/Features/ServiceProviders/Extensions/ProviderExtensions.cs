@@ -1,4 +1,5 @@
 ﻿using HireServices.Domain.Extensions;
+using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
 using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.GraphQL.Inputs;
 
@@ -26,6 +27,7 @@ namespace HireServices.Features.ServiceProviders.Extensions
                 .WithAddress(serviceProviderInput.AddressInput.ToAddress())
                 .WithServiceTags(serviceTags)
                 .WithServiceCategories(serviceCategories)
+                .WithProviderServices(serviceProviderInput.ServicesInput.ToProviderServices())
                 .Build();
         }
 
@@ -45,6 +47,20 @@ namespace HireServices.Features.ServiceProviders.Extensions
         public static List<ProviderOutput> ToServicesProviderOutputList(this List<Domain.AggregateRoots.Provider> serviceProviders)
         {
             return serviceProviders.Select(serviceProvider => serviceProvider.ToServiceProviderOutput()).ToList();
+        }
+
+        public static List<ProviderService> ToProviderServices(this List<ProviderServiceInput> providerServicesInput)
+        {
+            return providerServicesInput.Select(providerServiceInput =>
+            {
+                return new ProviderService.ProviderServiceBuilder()
+                    .WithName(providerServiceInput.Name)
+                    .WithDescription(providerServiceInput.Description)
+                    .WithPrice(providerServiceInput.Price)
+                    .WithDuration(providerServiceInput.Duration)
+                    .WithCategory(providerServiceInput.CategoryInput)
+                    .Build();
+            }).ToList();
         }
     }
 }

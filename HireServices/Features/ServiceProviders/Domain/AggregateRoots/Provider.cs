@@ -11,9 +11,10 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
         public JsonDocument Address { get; set; }
         public List<string> ServiceTags { get; set; }
         public List<string> ServiceCategories { get; set; }
-        public List<ProviderService> ProviderServices { get; set; }
+        public JsonDocument ProviderServices { get; set; }
         public JsonDocument HighlightedServices { get; set; }
         public decimal AverageRating { get; set; }
+        public int CustomersServed { get; set; }
         public JsonDocument LatestReviews { get; set; }
 
 
@@ -50,9 +51,9 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
                 _serviceProvider.ServiceCategories = serviceCategories.ToList();
                 return this;
             }
-            public ProviderBuilder WithProviderServices(IEnumerable<ProviderService> providerServices)
+            public ProviderBuilder WithProviderServices(List<ProviderService> providerServices)
             {
-                _serviceProvider.ProviderServices = providerServices.ToList();
+                _serviceProvider.ProviderServices = JsonDocument.Parse(JsonSerializer.Serialize(providerServices, _options));
                 return this;
             }
             public ProviderBuilder WithHighlightedServices(List<ProviderService> highlightedServices)
@@ -65,9 +66,14 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
                 _serviceProvider.AverageRating = averageRating;
                 return this;
             }
-            public ProviderBuilder WithLatestTwoReviews(LatestProviderReviews latestReviews)
+            public ProviderBuilder WithLatestReviews(List<ProviderReview> latestReviews)
             {
                 _serviceProvider.LatestReviews = JsonDocument.Parse(JsonSerializer.Serialize(latestReviews, _options));
+                return this;
+            }
+            public ProviderBuilder WithCustomersServed(int customersServed)
+            {
+                _serviceProvider.CustomersServed = customersServed;
                 return this;
             }
             public Provider Build()
