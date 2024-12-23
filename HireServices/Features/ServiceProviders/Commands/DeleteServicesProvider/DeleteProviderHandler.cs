@@ -1,24 +1,48 @@
-﻿using HireServices.Features.ServiceProviders.Services;
+﻿using HireServices.Features.ServiceProviders.Data;
+using HireServices.Features.ServiceProviders.Services;
 using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Commands.DeleteServicesProvider
 {
     public class DeleteProviderHandler : IRequestHandler<DeleteProviderCommand, bool>
     {
-        private readonly ISProviderService _providerService;
+        private readonly IProviderServicesService _providerService;
+        private readonly ProviderDbContext _providerDbContext;
 
-        public DeleteProviderHandler(ISProviderService providerService)
+        public DeleteProviderHandler(IProviderServicesService providerService,
+            ProviderDbContext providerDbContext)
         {
             _providerService = providerService;
+            _providerDbContext = providerDbContext;
         }
         public async Task<bool> Handle(DeleteProviderCommand request, CancellationToken cancellationToken)
         {
-            var serviceProviderDeleted = await _providerService.DeleteProviderAsync(request.servicesProviderId);
-            if (!serviceProviderDeleted)
+            bool providerDeleted = false;
+            using (var transaction = await _providerDbContext.Database.BeginTransactionAsync())
             {
-                throw new Exception("Error deleting services provider");
+                try
+                {
+                    var providerServices = await _providerService.GetProviderServicesByProviderIdAsync(request.ProviderId); 
+                    if(providerServices is null || providerServices.Count == 0)
+                    {
+                        throw new Exception($"Services not found for providerId: {request.ProviderId}");
+                    }
+
+                    providerDeleted = await _providerService.DeleteProviderAsync(request.ProviderId);
+                    if (!providerDeleted)
+                    {
+                        throw new Exception("Error deleting services provider");
+                    }
+                    await transaction.CommitAsync();
+                }
+                catch (Exception)
+                {
+                    await transaction.RollbackAsync();
+                    return false;
+                }
             }
-            return serviceProviderDeleted;
+                
+            return providerDeleted;
         }
     }
 }

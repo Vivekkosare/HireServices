@@ -11,7 +11,7 @@ namespace HireServices.Features.ServiceProviders.Extensions
         {
             //var services = serviceProviderInput.ServicesInput.Select(serviceInput =>
             //    {
-            //        return new Domain.AggregateRoots.ServicesProviderService.ServicesProviderServiceBuilder()
+            //        return new ServicesProviderService.ServicesProviderServiceBuilder()
             //        .WithName(serviceInput.Name)
             //        .WithDescription(serviceInput.Description)
             //        .WithPrice(serviceInput.Price)
@@ -22,16 +22,16 @@ namespace HireServices.Features.ServiceProviders.Extensions
             var serviceTags = serviceProviderInput.ServicesInput.Select(s => s.Name);
             var serviceCategories = serviceProviderInput.ServicesInput.Select(sp => sp.CategoryInput.Name);
 
-            return new Domain.AggregateRoots.Provider.ProviderBuilder()
+            return new Provider.ProviderBuilder()
                 .WithContactInfo(serviceProviderInput.ContactInfoInput.ToContactInfo())
                 .WithAddress(serviceProviderInput.AddressInput.ToAddress())
                 .WithServiceTags(serviceTags)
                 .WithServiceCategories(serviceCategories)
-                .WithProviderServices(serviceProviderInput.ServicesInput.ToProviderServices())
+                .WithHighlightedServices(serviceProviderInput.ServicesInput.ToProviderServices())
                 .Build();
         }
 
-        public static ProviderOutput ToServiceProviderOutput(this Domain.AggregateRoots.Provider serviceProvider)
+        public static ProviderOutput ToProviderOutput(this Provider serviceProvider)
         {
             return new ProviderOutput.ProviderOutputBuilder()
                 .WithId(serviceProvider.Id)
@@ -39,14 +39,15 @@ namespace HireServices.Features.ServiceProviders.Extensions
                 .WithAddressOutput(serviceProvider.Address)
                 .WithServiceTags(serviceProvider.ServiceTags)
                 .WithServiceCategories(serviceProvider.ServiceCategories)
+                .WithHighlightedServices(serviceProvider.HighlightedServices)
                 .WithCreatedAt(serviceProvider.CreatedAt)
                 .WithUpdatedAt(serviceProvider.UpdatedAt)
                 .Build();
         }
 
-        public static List<ProviderOutput> ToServicesProviderOutputList(this List<Domain.AggregateRoots.Provider> serviceProviders)
+        public static List<ProviderOutput> ToProviderOutputList(this List<Provider> providers)
         {
-            return serviceProviders.Select(serviceProvider => serviceProvider.ToServiceProviderOutput()).ToList();
+            return providers.Select(provider => provider.ToProviderOutput()).ToList();
         }
 
         public static List<ProviderService> ToProviderServices(this List<ProviderServiceInput> providerServicesInput)
@@ -61,6 +62,21 @@ namespace HireServices.Features.ServiceProviders.Extensions
                     .WithCategory(providerServiceInput.CategoryInput)
                     .Build();
             }).ToList();
+        }
+
+        public static List<ProviderServiceOutput> ToProviderServiceOutputList(this List<ProviderService> providerServices)
+        {
+            return providerServices.Select(ps =>
+                new ProviderServiceOutput.ProviderServiceOutputBuilder()
+                .WithId(ps.Id.GetValueOrDefault())  
+                .WithName(ps.Name)
+                .WithDescription(ps.Description)
+                .WithPrice(ps.Price)
+                .WithDuration(ps.Duration)
+                .WithCategory(ps.Category)
+                .WithCreatedAt(ps.CreatedAt)
+                .WithUpdatedAt(ps.UpdatedAt)
+                .Build()).ToList();
         }
     }
 }

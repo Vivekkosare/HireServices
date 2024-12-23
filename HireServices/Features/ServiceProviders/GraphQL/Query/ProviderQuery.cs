@@ -1,8 +1,6 @@
-﻿using HireServices.Features.Customers.GraphQL.Queries;
-using HireServices.Features.ServiceProviders.DTOs;
-using HireServices.Features.ServiceProviders.Queries;
-using HireServices.Features.ServiceProviders.Queries.GetServicesProvider;
-using HireServices.Features.ServiceProviders.Queries.GetServicesProviders;
+﻿using HireServices.Features.ServiceProviders.DTOs;
+using HireServices.Features.ServiceProviders.Queries.GetProvider;
+using HireServices.Features.ServiceProviders.Queries.GetProviders;
 using MediatR;
 
 namespace HireServices.Features.ServiceProviders.GraphQL.Query
@@ -18,12 +16,12 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Query
     }
     public class ProviderQuery
     {
-        public async Task<List<ProviderOutput>> GetServicesProviders([Service] IMediator mediator, int pageSize = 10)
+        public async Task<List<ProviderOutput>> GetProviders([Service] IMediator mediator, int pageSize = 10)
         {
             return await mediator.Send(new GetProvidersQuery(pageSize));
         }
 
-        public async Task<ProviderOutput> GetServicesProvider([Service] IMediator mediator, Guid servicesProviderId)
+        public async Task<ProviderOutput> GetProvider([Service] IMediator mediator, Guid servicesProviderId)
         {
             return await mediator.Send(new GetProviderQuery(servicesProviderId));
         }

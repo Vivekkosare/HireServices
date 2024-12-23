@@ -13,7 +13,7 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
         public Guid? Id { get; set; }
         
         [GraphQLType(typeof(IdType))]
-        public Guid ServiceProviderId { get; set; }
+        public Guid ProviderId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }

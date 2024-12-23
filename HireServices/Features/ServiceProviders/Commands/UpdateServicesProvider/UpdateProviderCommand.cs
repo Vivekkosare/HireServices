@@ -5,5 +5,5 @@ using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Commands.UpdateServicesProvider
 {
-    public record UpdateProviderCommand(Guid serviceProviderId, ProviderInput input) : IRequest<ProviderOutput>;
+    public record UpdateProviderCommand(Guid ProviderId, ProviderInput Input) : IRequest<ProviderOutput>;
 }

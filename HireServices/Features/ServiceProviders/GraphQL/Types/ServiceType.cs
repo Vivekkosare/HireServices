@@ -9,7 +9,7 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Types
         {
             base.Configure(descriptor);
             descriptor.Field(s => s.Id).Type<IdType>();
-            descriptor.Field(s => s.ServiceProviderId).Type<NonNullType<IdType>>();
+            descriptor.Field(s => s.ProviderId).Type<NonNullType<IdType>>();
             descriptor.Field(s => s.Name).Type<NonNullType<StringType>>();
             descriptor.Field(s => s.Description).Type<StringType>();
             descriptor.Field(s => s.Price).Type<NonNullType<DecimalType>>();

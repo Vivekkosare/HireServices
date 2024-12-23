@@ -3,13 +3,13 @@ using HireServices.Features.ServiceProviders.Extensions;
 using HireServices.Features.ServiceProviders.Services;
 using MediatR;
 
-namespace HireServices.Features.ServiceProviders.Queries.GetServicesProviders
+namespace HireServices.Features.ServiceProviders.Queries.GetProviders
 {
     public class GetProvidersHandler : IRequestHandler<GetProvidersQuery, List<ProviderOutput>>
     {
-        private readonly ISProviderService _providerService;
+        private readonly IProviderServicesService _providerService;
 
-        public GetProvidersHandler(ISProviderService providerService)
+        public GetProvidersHandler(IProviderServicesService providerService)
         {
             _providerService = providerService;
         }
@@ -20,7 +20,7 @@ namespace HireServices.Features.ServiceProviders.Queries.GetServicesProviders
             {
                 throw new Exception("No service providers found");
             }
-            return servicesProviders.ToServicesProviderOutputList();
+            return servicesProviders.ToProviderOutputList();
         }
     }
 }

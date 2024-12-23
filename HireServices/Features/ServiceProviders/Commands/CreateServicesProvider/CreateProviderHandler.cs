@@ -1,4 +1,5 @@
-﻿using HireServices.Features.ServiceProviders.DTOs;
+﻿using HireServices.Features.ServiceProviders.Data;
+using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.Extensions;
 using HireServices.Features.ServiceProviders.Services;
 using MediatR;
@@ -7,20 +8,53 @@ namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
 {
     public class CreateProviderHandler : IRequestHandler<CreateProviderCommand, ProviderOutput>
     {
-        private readonly ISProviderService _providerService;
+        private readonly IProviderServicesService _providerService;
+        private readonly ProviderDbContext _providerDbContext;
 
-        public CreateProviderHandler(ISProviderService providerService)
+        public CreateProviderHandler(IProviderServicesService providerService,
+            ProviderDbContext providerDbContext)
         {
             _providerService = providerService;
+            _providerDbContext = providerDbContext;
         }
         public async Task<ProviderOutput> Handle(CreateProviderCommand request, CancellationToken cancellationToken)
         {
-            var servicesProvider = await _providerService.CreateProviderAsync(request.Input.ToServiceProvider());
-            if (servicesProvider == null)
+            ProviderOutput provider = null;
+            using (var transaction = await _providerDbContext.Database.BeginTransactionAsync())
             {
-                throw new Exception("Error creating services provider");
+                try
+                {
+                    //All services for provider
+                    var providerServicesInput = request.Input.ServicesInput;
+
+                    //Fetch the first 3 services (those will be the highlighted services)
+                    request.Input.ServicesInput = request.Input.ServicesInput.Take(3).ToList();
+
+                    //Adds the provider profile in the provider table
+                    var providerCreated = await _providerService.CreateProviderAsync(request.Input.ToServiceProvider());
+                    if (providerCreated == null)
+                    {
+                        throw new Exception("Error creating services provider");
+                    }
+                    provider = providerCreated.ToProviderOutput();
+
+                    //Adds the services into provider services table
+                    var providerServicesCreated = providerServicesInput.ToProviderServices().Select(async providerService =>
+                    {
+                        providerService.ProviderId = providerCreated.Id;
+                        return await _providerService.CreateProviderServiceAsync(providerService);
+                    });
+                    await transaction.CommitAsync();
+                }
+                catch (Exception)
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
+
             }
-            return servicesProvider.ToServiceProviderOutput();
+
+            return provider;
         }
     }
 }

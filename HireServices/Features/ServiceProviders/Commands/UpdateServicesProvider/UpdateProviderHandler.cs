@@ -7,25 +7,25 @@ namespace HireServices.Features.ServiceProviders.Commands.UpdateServicesProvider
 {
     public class UpdateProviderHandler : IRequestHandler<UpdateProviderCommand, ProviderOutput>
     {
-        private readonly ISProviderService _providerService;
+        private readonly IProviderServicesService _providerService;
 
-        public UpdateProviderHandler(ISProviderService providerService)
+        public UpdateProviderHandler(IProviderServicesService providerService)
         {
             _providerService = providerService;
         }
         public async Task<ProviderOutput> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
         {
-            var serviceProvider = await _providerService.GetProviderAsync(request.serviceProviderId);
-            if (serviceProvider == null)
+            var provider = await _providerService.GetProviderAsync(request.ProviderId);
+            if (provider == null)
             {
                 throw new Exception("Services provider not found to update");
             }
-            var servicesProviderUpdated = await _providerService.UpdateProviderAsync(request.serviceProviderId, serviceProvider);
-            if (servicesProviderUpdated == null)
+            var providerUpdated = await _providerService.UpdateProviderAsync(request.ProviderId, provider);
+            if (providerUpdated == null)
             {
                 throw new Exception("Error updating services provider");
             }
-            return servicesProviderUpdated.ToServiceProviderOutput();
+            return providerUpdated.ToProviderOutput();
         }
     }
 }

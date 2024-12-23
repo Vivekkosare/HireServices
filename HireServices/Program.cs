@@ -63,7 +63,7 @@ builder.Services.AddDbContext<ProviderDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<ISProviderService, SProviderService>();
+builder.Services.AddScoped<IProviderServicesService, ProviderServicesService>();
 
 
 var app = builder.Build();

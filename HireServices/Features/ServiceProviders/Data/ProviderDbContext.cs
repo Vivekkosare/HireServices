@@ -55,9 +55,29 @@ namespace HireServices.Features.ServiceProviders.Data
                 .HasMethod("gin");
 
             modelBuilder.Entity<Provider>()
-                .HasMany(p => p.ProviderServices)
-                .WithOne()
-                .HasForeignKey("ProviderId");
+                .Property(p => p.HighlightedServices)
+                .HasColumnType("jsonb")
+                .HasConversion(
+                    new ValueConverter<JsonDocument, string>(
+                        v => v != null ? v.RootElement.GetRawText() : string.Empty,
+                        v => !string.IsNullOrEmpty(v) ? JsonDocument.Parse(v, default) : null))
+                .IsRequired(true);
+
+            modelBuilder.Entity<Provider>()
+                .Property(p => p.AverageRating)
+                .HasColumnType("decimal");
+
+            modelBuilder.Entity<Provider>()
+                .Property(p => p.CustomersServed)
+                .HasColumnType("int");
+
+            modelBuilder.Entity<Provider>()
+                .Property(p => p.LatestReviews)
+                .HasColumnType("jsonb")
+                .HasConversion(
+                    new ValueConverter<JsonDocument, string>(
+                        v => v != null ? v.RootElement.GetRawText() : string.Empty,
+                        v => !string.IsNullOrEmpty(v) ? JsonDocument.Parse(v, default) : null));
 
             //***************************************--------PROVIDER SERVICE--------***************************************//
 
@@ -69,11 +89,11 @@ namespace HireServices.Features.ServiceProviders.Data
             modelBuilder.Entity<ProviderService>()
                 .HasOne<Provider>()
                 .WithMany()
-                .HasForeignKey(sps => sps.ServiceProviderId)
+                .HasForeignKey(sps => sps.ProviderId)
                 .IsRequired(true);
 
             modelBuilder.Entity<ProviderService>()
-                .Property(sps => sps.ServiceProviderId).IsRequired(true);
+                .Property(sps => sps.ProviderId).IsRequired(true);
 
             modelBuilder.Entity<ProviderService>()
                 .Property(sps => sps.Name)
@@ -98,17 +118,6 @@ namespace HireServices.Features.ServiceProviders.Data
             modelBuilder.Entity<ProviderService>()
                 .Property(sps => sps.Duration).HasColumnType("interval")
                 .IsRequired(true);
-
-
-
-            //modelBuilder.Entity<ServicesProvider>()
-            //    .Property(sp => sp.Services)
-            //    .HasColumnType("jsonb")
-            //    .HasConversion(
-            //        new ValueConverter<JsonDocument, string>(
-            //            v => v != null ? v.RootElement.GetRawText() : string.Empty,
-            //            v => !string.IsNullOrEmpty(v) ? JsonDocument.Parse(v, default): null))
-            //    .IsRequired(true);
         }
     }
 }

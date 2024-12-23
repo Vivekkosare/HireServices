@@ -11,7 +11,7 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
         public JsonDocument Address { get; set; }
         public List<string> ServiceTags { get; set; }
         public List<string> ServiceCategories { get; set; }
-        public JsonDocument ProviderServices { get; set; }
+        public List<ProviderService> ProviderServices { get; set; }
         public JsonDocument HighlightedServices { get; set; }
         public decimal AverageRating { get; set; }
         public int CustomersServed { get; set; }
@@ -53,7 +53,7 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
             }
             public ProviderBuilder WithProviderServices(List<ProviderService> providerServices)
             {
-                _serviceProvider.ProviderServices = JsonDocument.Parse(JsonSerializer.Serialize(providerServices, _options));
+                _serviceProvider.ProviderServices = providerServices;
                 return this;
             }
             public ProviderBuilder WithHighlightedServices(List<ProviderService> highlightedServices)
