@@ -48,7 +48,7 @@ namespace HireServices.Features.ServiceProviders.Services
             return servicesProvider;
         }
 
-        /*************************----------------PROVIDER SERVICES--------------*********************************/
+        /*************************----------------PROVIDER SERVICES--------------**************************/
 
         public async Task<ProviderService> CreateProviderServiceAsync(ProviderService providerService)
         {

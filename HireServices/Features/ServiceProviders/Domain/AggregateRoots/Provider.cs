@@ -13,9 +13,9 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
         public List<string> ServiceCategories { get; set; }
         public List<ProviderService> ProviderServices { get; set; }
         public JsonDocument HighlightedServices { get; set; }
-        public decimal AverageRating { get; set; }
+        public decimal? AverageRating { get; set; }
         public int CustomersServed { get; set; }
-        public JsonDocument LatestReviews { get; set; }
+        public JsonDocument? LatestReviews { get; set; }
 
 
         public class ProviderBuilder
@@ -61,14 +61,14 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
                 _serviceProvider.HighlightedServices = JsonDocument.Parse(JsonSerializer.Serialize(highlightedServices, _options));
                 return this;
             }
-            public ProviderBuilder WithAverageRating(decimal averageRating)
+            public ProviderBuilder WithAverageRating(decimal? averageRating)
             {
-                _serviceProvider.AverageRating = averageRating;
+                _serviceProvider.AverageRating = averageRating ?? 0.0m;
                 return this;
             }
             public ProviderBuilder WithLatestReviews(List<ProviderReview> latestReviews)
             {
-                _serviceProvider.LatestReviews = JsonDocument.Parse(JsonSerializer.Serialize(latestReviews, _options));
+                _serviceProvider.LatestReviews = latestReviews is not null ? JsonDocument.Parse(JsonSerializer.Serialize(latestReviews, _options)) : default;
                 return this;
             }
             public ProviderBuilder WithCustomersServed(int customersServed)

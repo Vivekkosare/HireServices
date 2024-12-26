@@ -6,6 +6,7 @@ namespace HireServices.Features.ServiceProviders.DTOs
     public record ProviderServiceOutput
     {
         public Guid Id { get; set; }
+        public Guid ProviderId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
@@ -24,6 +25,11 @@ namespace HireServices.Features.ServiceProviders.DTOs
             public ProviderServiceOutputBuilder WithId(Guid id)
             {
                 _service.Id = id;
+                return this;
+            }
+            public ProviderServiceOutputBuilder WithProviderId(Guid providerId)
+            {
+                _service.ProviderId = providerId;
                 return this;
             }
             public ProviderServiceOutputBuilder WithName(string name)

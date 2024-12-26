@@ -18,17 +18,17 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Mutations
     }
     public class ProviderMutation
     {
-        public async Task<ProviderOutput> CreateServicesProvider([Service] IMediator mediator, ProviderInput servicesProviderInput)
+        public async Task<ProviderOutput> CreateProvider([Service] IMediator mediator, ProviderInput providerInput)
         {
-            return await mediator.Send(new CreateProviderCommand(servicesProviderInput));
+            return await mediator.Send(new CreateProviderCommand(providerInput));
         }
-        public async Task<ProviderOutput> UpdateServicesProvider([Service] IMediator mediator, Guid servicesProviderId, ProviderInput servicesProviderInput)
+        public async Task<ProviderOutput> UpdateProvider([Service] IMediator mediator, Guid servicesProviderId, ProviderInput providerInput)
         {
-            return await mediator.Send(new UpdateProviderCommand(servicesProviderId, servicesProviderInput));
+            return await mediator.Send(new UpdateProviderCommand(servicesProviderId, providerInput));
         }
-        public async Task DeleteServicesProvider([Service] IMediator mediator, Guid servicesProviderId)
+        public async Task DeleteProvider([Service] IMediator mediator, Guid providerId)
         {
-            await mediator.Send(new DeleteProviderCommand(servicesProviderId));
+            await mediator.Send(new DeleteProviderCommand(providerId));
         }
     }
 }

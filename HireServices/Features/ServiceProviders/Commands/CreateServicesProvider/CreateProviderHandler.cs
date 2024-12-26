@@ -1,4 +1,5 @@
 ﻿using HireServices.Features.ServiceProviders.Data;
+using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
 using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.Extensions;
 using HireServices.Features.ServiceProviders.Services;
@@ -38,12 +39,20 @@ namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
                     }
                     provider = providerCreated.ToProviderOutput();
 
+                    var providerServices = providerServicesInput.ToProviderServices();
+
                     //Adds the services into provider services table
-                    var providerServicesCreated = providerServicesInput.ToProviderServices().Select(async providerService =>
+                    List<ProviderService> providerServicesCreated = new List<ProviderService>();
+                    foreach (var providerService in providerServices)
                     {
                         providerService.ProviderId = providerCreated.Id;
-                        return await _providerService.CreateProviderServiceAsync(providerService);
-                    });
+                        var providerServiceCreated = await _providerService.CreateProviderServiceAsync(providerService);
+                        providerServicesCreated.Add(providerServiceCreated);
+                    }
+
+                    //List<ProviderServiceOutput> providerServiceOutputs = providerServicesCreated.ToProviderServiceOutputList();
+
+
                     await transaction.CommitAsync();
                 }
                 catch (Exception)

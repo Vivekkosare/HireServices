@@ -28,6 +28,7 @@ namespace HireServices.Features.ServiceProviders.Extensions
                 .WithServiceTags(serviceTags)
                 .WithServiceCategories(serviceCategories)
                 .WithHighlightedServices(serviceProviderInput.ServicesInput.ToProviderServices())
+                .WithAverageRating(default)
                 .Build();
         }
 

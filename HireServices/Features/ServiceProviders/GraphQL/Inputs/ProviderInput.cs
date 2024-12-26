@@ -13,6 +13,6 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Inputs
         [GraphQLNonNullType]
         public List<ProviderServiceInput> ServicesInput { get; set; }
 
-        public List<ProviderReviewInput> ProviderReviewsInput { get; set; }
+        public List<ProviderReviewInput>? ProviderReviewsInput { get; set; }
     }
 }
