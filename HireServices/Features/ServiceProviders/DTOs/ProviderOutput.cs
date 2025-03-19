@@ -3,10 +3,10 @@ using HireServices.Domain.Extensions;
 using HireServices.Domain.ValueObjects;
 using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
 using System.Text.Json;
-using static HireServices.Features.ServiceProviders.Domain.AggregateRoots.Provider;
 
 namespace HireServices.Features.ServiceProviders.DTOs
 {
+    //[GraphQLType(typeof(ObjectType<ProviderOutput>))]
     public record ProviderOutput
     {
         public ContactInfoOutput ContactInfoOutput { get; set; }

@@ -1,6 +1,9 @@
-﻿using HireServices.Features.ServiceProviders.Data;
+﻿using EFCore.BulkExtensions;
+using HireServices.Domain.Common;
+using HireServices.Features.ServiceProviders.Data;
 using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace HireServices.Features.ServiceProviders.Services
 {
@@ -35,6 +38,11 @@ namespace HireServices.Features.ServiceProviders.Services
         {
             return await _providerDbContext.Providers.FindAsync(serviceProviderId);
         }
+        public async Task<Provider> GetProviderByPhoneNumberAsync(string phoneNumber)
+        {
+            var serviceProvider = await _providerDbContext.Providers.FirstOrDefaultAsync(x => x.ContactInfo.PhoneNumber == phoneNumber);
+            return serviceProvider;
+        }
 
         public async Task<List<Provider>> GetProvidersAsync(int pageSize)
         {
@@ -56,13 +64,15 @@ namespace HireServices.Features.ServiceProviders.Services
             await SaveChangesAsync();
             return providerServiceCreated.Entity;
         }
+        public async Task<List<ProviderService>> BulkCreateProviderServicesAsync(List<ProviderService> providerServices)
+        {
+            await _providerDbContext.BulkInsertAsync(providerServices);
+            await SaveChangesAsync();
+            return providerServices;
+        }
         public async Task<ProviderService> GetProviderServiceAsync(Guid providerServiceId)
         {
             var providerService = await _providerDbContext.ProviderServices.FindAsync(providerServiceId);
-            if(providerService is null)
-            {
-                throw new ArgumentNullException(nameof(providerService), "Provider service not found.");
-            }
             return providerService;
         }
 
@@ -74,10 +84,10 @@ namespace HireServices.Features.ServiceProviders.Services
         public async Task<List<ProviderService>> GetProviderServicesByProviderIdAsync(Guid providerId)
         {
             var providerServices = await _providerDbContext.ProviderServices.Where(x => x.ProviderId == providerId).ToListAsync();
-            if (providerServices is null)
-            {
-                throw new ArgumentNullException(nameof(providerServices), "Provider services not found.");
-            }
+            //if (providerServices is null)
+            //{
+            //    throw new ArgumentNullException(nameof(providerServices), "Provider services not found.");
+            //}
             return providerServices;
         }
     }

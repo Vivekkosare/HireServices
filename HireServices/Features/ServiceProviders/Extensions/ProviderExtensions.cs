@@ -56,6 +56,7 @@ namespace HireServices.Features.ServiceProviders.Extensions
             return providerServicesInput.Select(providerServiceInput =>
             {
                 return new ProviderService.ProviderServiceBuilder()
+                    .WithId(providerServiceInput.Id is null ? null : providerServiceInput.Id)
                     .WithName(providerServiceInput.Name)
                     .WithDescription(providerServiceInput.Description)
                     .WithPrice(providerServiceInput.Price)

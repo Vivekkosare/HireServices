@@ -1,4 +1,5 @@
-﻿using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
+﻿using HireServices.Domain.Common;
+using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
 
 namespace HireServices.Features.ServiceProviders.Services
 {
@@ -6,6 +7,8 @@ namespace HireServices.Features.ServiceProviders.Services
     {
         Task<List<Provider>> GetProvidersAsync(int pageSize);
         Task<Provider?> GetProviderAsync(Guid serviceProviderId);
+        Task<List<ProviderService>> BulkCreateProviderServicesAsync(List<ProviderService> providerServices);
+        Task<Provider> GetProviderByPhoneNumberAsync(string phoneNumber);
         Task<Provider> CreateProviderAsync(Provider servicesProvider);
         Task<Provider> UpdateProviderAsync(Guid serviceProviderId, Provider servicesProvider);
         Task<bool> DeleteProviderAsync(Guid serviceProviderId);

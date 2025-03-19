@@ -9,6 +9,7 @@ namespace HireServices.Features.ServiceProviders.Queries.GetProvider
     {
         private readonly IProviderServicesService _providerService;
 
+
         public GetProviderHandler(IProviderServicesService providerService)
         {
             _providerService = providerService;
