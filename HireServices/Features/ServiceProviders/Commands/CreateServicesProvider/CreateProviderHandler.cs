@@ -1,14 +1,13 @@
-﻿using HireServices.Domain.Common;
-using HireServices.Features.ServiceProviders.Data;
-using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
+﻿using HireServices.Features.ServiceProviders.Data;
 using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.Extensions;
 using HireServices.Features.ServiceProviders.Services;
 using MediatR;
+using System.Text.Json;
 
 namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
 {
-    public class CreateProviderHandler : IRequestHandler<CreateProviderCommand, ResultResponse<ProviderOutput>>
+    public class CreateProviderHandler : IRequestHandler<CreateProviderCommand, ProviderOutput>
     {
         private readonly IProviderServicesService _providerService;
         private readonly ProviderDbContext _providerDbContext;
@@ -22,9 +21,9 @@ namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
             _providerDbContext = providerDbContext;
             _logger = logger;
         }
-        public async Task<ResultResponse<ProviderOutput>> Handle(CreateProviderCommand request, CancellationToken cancellationToken)
+        public async Task<ProviderOutput> Handle(CreateProviderCommand request, CancellationToken cancellationToken)
         {
-            ResultResponse<ProviderOutput> provider = null;
+            ProviderOutput provider = new ProviderOutput();
             using (var transaction = await _providerDbContext.Database.BeginTransactionAsync())
             {
                 try
@@ -33,8 +32,7 @@ namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
                     var serviceProviderExist = await _providerService.GetProviderByPhoneNumberAsync(request.Input.ContactInfoInput.PhoneNumber);
                     if (serviceProviderExist is not null)
                     {
-                        //throw new Exception("Service provider already exist");
-                        return ResultResponse<ProviderOutput>.Fail("Service provider already exist", System.Net.HttpStatusCode.Conflict);
+                        throw new GraphQLException("Service provider already exist");
                     }
                     //All services for provider
                     var providerServicesInput = request.Input.ServicesInput;
@@ -46,22 +44,19 @@ namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
                     string tags = string.Empty;
                     var serviceProvider = request.Input.ToServiceProvider();
                     List<string> servicesTagsList = request.Input.ServicesInput.Select(x => x.Name).ToList();
-                    //foreach (var serviceTag in servicesTagsList)
-                    //{
-                    //    tags = string.Join(", ", serviceTag);
-                    //}
+
                     serviceProvider.ServiceTags = servicesTagsList;
                     serviceProvider.ServiceCategories = serviceCategories;
+
                     //Adds the provider profile in the provider table
                     var providerCreated = await _providerService.CreateProviderAsync(request.Input.ToServiceProvider());
                     if (providerCreated == null)
                     {
                         var msg = "An error occured while creating provider";
                         _logger.LogError(msg);
-                        return ResultResponse<ProviderOutput>.Fail(msg, System.Net.HttpStatusCode.Conflict);
-                        //throw new Exception(msg);
+                        throw new GraphQLException(msg);
                     }
-                    provider.Value = providerCreated.ToProviderOutput();
+                    provider = providerCreated.ToProviderOutput();
 
                     var providerServices = providerServicesInput.ToProviderServices();
 
@@ -69,22 +64,25 @@ namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
                     providerServices.ForEach(x => x.ProviderId = providerCreated.Id);
                     providerServices = await _providerService.BulkCreateProviderServicesAsync(providerServices);
 
-                    List<ProviderServiceOutput> providerServiceOutputs = providerServices.ToProviderServiceOutputList();
+                    providerCreated.HighlightedServices = JsonDocument.Parse(JsonSerializer.Serialize(providerServices.Take(3)));
+                    _providerDbContext.Providers.Update(providerCreated);
+
+                    
+                    List<ProviderServiceOutput> providerServiceOutputs = providerServices.ToProviderServiceOutputList();                    
+                    provider.HighlightedServices = providerServiceOutputs.Take(3).ToList();
 
                     await transaction.CommitAsync();
-                    provider.Value.HighlightedServices = providerServiceOutputs;
+                    return provider;
                 }
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    _logger.LogError(ex, "An error occured while creating provider");
-                    return ResultResponse<ProviderOutput>.Fail(ex.Message, System.Net.HttpStatusCode.InternalServerError);
-                    //throw new Exception($"An error occured while creating provider: {ex.Message}");
+                    _logger.LogError(ex, "Something happened!!");
+                    throw;
                 }
 
-            }
 
-            return provider;
+            }
         }
     }
 }

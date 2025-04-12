@@ -1,4 +1,5 @@
-﻿using HireServices.Features.ServiceProviders.Commands;
+﻿using HireServices.Domain.Common;
+using HireServices.Features.ServiceProviders.Commands;
 using HireServices.Features.ServiceProviders.Commands.CreateServicesProvider;
 using HireServices.Features.ServiceProviders.Commands.DeleteServicesProvider;
 using HireServices.Features.ServiceProviders.Commands.UpdateServicesProvider;
@@ -21,7 +22,7 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Mutations
         public async Task<ProviderOutput> CreateProvider([Service] IMediator mediator, ProviderInput providerInput)
         {
             var providerResponse = await mediator.Send(new CreateProviderCommand(providerInput));
-            return providerResponse.Value;
+            return providerResponse;
         }
         public async Task<ProviderOutput> UpdateProvider([Service] IMediator mediator, Guid servicesProviderId, ProviderInput providerInput)
         {

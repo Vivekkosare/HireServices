@@ -1,5 +1,6 @@
 ﻿using HireServices.Domain.Extensions;
-using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
+using HireServices.Features.ServiceProviders.Domain.Builders;
+using HireServices.Features.ServiceProviders.Domain.Entities;
 using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.GraphQL.Inputs;
 
@@ -7,7 +8,7 @@ namespace HireServices.Features.ServiceProviders.Extensions
 {
     public static class ProviderExtensions
     {
-        public static Domain.AggregateRoots.Provider ToServiceProvider(this ProviderInput serviceProviderInput)
+        public static Provider ToServiceProvider(this ProviderInput serviceProviderInput)
         {
             //var services = serviceProviderInput.ServicesInput.Select(serviceInput =>
             //    {
@@ -22,7 +23,7 @@ namespace HireServices.Features.ServiceProviders.Extensions
             var serviceTags = serviceProviderInput.ServicesInput.Select(s => s.Name);
             var serviceCategories = serviceProviderInput.ServicesInput.Select(sp => sp.CategoryInput.Name);
 
-            return new Provider.ProviderBuilder()
+            return new ProviderBuilder()
                 .WithContactInfo(serviceProviderInput.ContactInfoInput.ToContactInfo())
                 .WithAddress(serviceProviderInput.AddressInput.ToAddress())
                 .WithServiceTags(serviceTags)
@@ -34,13 +35,13 @@ namespace HireServices.Features.ServiceProviders.Extensions
 
         public static ProviderOutput ToProviderOutput(this Provider serviceProvider)
         {
-            return new ProviderOutput.ProviderOutputBuilder()
+            return new ProviderOutputBuilder()
                 .WithId(serviceProvider.Id)
                 .WithContactInfoOutput(serviceProvider.ContactInfo)
                 .WithAddressOutput(serviceProvider.Address)
                 .WithServiceTags(serviceProvider.ServiceTags)
                 .WithServiceCategories(serviceProvider.ServiceCategories)
-                .WithHighlightedServices(serviceProvider.HighlightedServices)
+                .WithHighlightedServices(serviceProvider)
                 .WithCreatedAt(serviceProvider.CreatedAt)
                 .WithUpdatedAt(serviceProvider.UpdatedAt)
                 .Build();
@@ -55,8 +56,8 @@ namespace HireServices.Features.ServiceProviders.Extensions
         {
             return providerServicesInput.Select(providerServiceInput =>
             {
-                return new ProviderService.ProviderServiceBuilder()
-                    .WithId(providerServiceInput.Id is null ? null : providerServiceInput.Id)
+                return new ProviderServiceBuilder()
+                    //.WithId(providerServiceInput.Id is null ? null : providerServiceInput.Id)
                     .WithName(providerServiceInput.Name)
                     .WithDescription(providerServiceInput.Description)
                     .WithPrice(providerServiceInput.Price)
@@ -69,8 +70,8 @@ namespace HireServices.Features.ServiceProviders.Extensions
         public static List<ProviderServiceOutput> ToProviderServiceOutputList(this List<ProviderService> providerServices)
         {
             return providerServices.Select(ps =>
-                new ProviderServiceOutput.ProviderServiceOutputBuilder()
-                .WithId(ps.Id.GetValueOrDefault())  
+                new ProviderServiceOutputBuilder()
+                .WithId(ps.Id)  
                 .WithName(ps.Name)
                 .WithDescription(ps.Description)
                 .WithPrice(ps.Price)

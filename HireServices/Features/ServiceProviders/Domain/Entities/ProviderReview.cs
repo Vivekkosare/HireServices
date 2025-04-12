@@ -1,6 +1,6 @@
 ﻿using HireServices.Domain.Common;
 
-namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
+namespace HireServices.Features.ServiceProviders.Domain.Entities
 {
     public class ProviderReview : BaseEntity
     {
@@ -8,6 +8,6 @@ namespace HireServices.Features.ServiceProviders.Domain.AggregateRoots
         public Guid CustomerId { get; set; }
         public string Review { get; set; }
         public decimal Rating { get; set; }
-        public bool Flagged { get; set; }   
+        public bool Flagged { get; set; }
     }
 }

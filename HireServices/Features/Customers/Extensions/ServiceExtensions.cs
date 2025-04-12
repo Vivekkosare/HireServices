@@ -1,5 +1,6 @@
-﻿using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
+﻿using HireServices.Features.ServiceProviders.Domain.Entities;
 using HireServices.Features.ServiceProviders.GraphQL.Inputs;
+using HireServices.Features.ServiceProviders.Domain.Builders;
 
 namespace HireServices.Features.Customers.Extensions
 {
@@ -7,8 +8,8 @@ namespace HireServices.Features.Customers.Extensions
     {
         public static ProviderService ToService(ProviderServiceInput serviceInput)
         {
-            return new ProviderService.ProviderServiceBuilder()
-                .WithId(serviceInput.Id)
+            return new ProviderServiceBuilder()
+                //.WithId(serviceInput.Id)
                 .WithCategory(serviceInput.CategoryInput)
                 .WithPrice(serviceInput.Price)
                 .WithDescription(serviceInput.Description)

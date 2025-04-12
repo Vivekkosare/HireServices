@@ -1,6 +1,3 @@
-using System.Text.Json;
-using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
-
 public class ProviderResolvers
 {
     //public List<Service> GetServices(ServicesProvider provider)

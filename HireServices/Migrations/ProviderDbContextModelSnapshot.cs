@@ -4,24 +4,21 @@ using System.Collections.Generic;
 using HireServices.Features.ServiceProviders.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace HireServices.Migrations.ProviderDb
+namespace HireServices.Migrations
 {
     [DbContext(typeof(ProviderDbContext))]
-    [Migration("20241226174926_NewColumns")]
-    partial class NewColumns
+    partial class ProviderDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -36,7 +33,7 @@ namespace HireServices.Migrations.ProviderDb
                         .IsRequired()
                         .HasColumnType("jsonb");
 
-                    b.Property<decimal>("AverageRating")
+                    b.Property<decimal?>("AverageRating")
                         .HasColumnType("decimal");
 
                     b.Property<DateTime>("CreatedAt")
@@ -50,7 +47,6 @@ namespace HireServices.Migrations.ProviderDb
                         .HasColumnType("jsonb");
 
                     b.Property<string>("LatestReviews")
-                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.PrimitiveCollection<List<string>>("ServiceCategories")
@@ -106,17 +102,12 @@ namespace HireServices.Migrations.ProviderDb
                     b.Property<Guid>("ProviderId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ProviderId1")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProviderId");
-
-                    b.HasIndex("ProviderId1");
 
                     b.ToTable("ProviderServices");
                 });
@@ -166,15 +157,13 @@ namespace HireServices.Migrations.ProviderDb
 
             modelBuilder.Entity("HireServices.Features.ServiceProviders.Domain.AggregateRoots.ProviderService", b =>
                 {
-                    b.HasOne("HireServices.Features.ServiceProviders.Domain.AggregateRoots.Provider", null)
-                        .WithMany()
+                    b.HasOne("HireServices.Features.ServiceProviders.Domain.AggregateRoots.Provider", "Provider")
+                        .WithMany("ProviderServices")
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HireServices.Features.ServiceProviders.Domain.AggregateRoots.Provider", null)
-                        .WithMany("ProviderServices")
-                        .HasForeignKey("ProviderId1");
+                    b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("HireServices.Features.ServiceProviders.Domain.AggregateRoots.Provider", b =>

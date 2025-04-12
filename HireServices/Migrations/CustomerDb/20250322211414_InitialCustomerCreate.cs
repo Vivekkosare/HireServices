@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace HireServices.Migrations
+namespace HireServices.Migrations.CustomerDb
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCustomerCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

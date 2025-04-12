@@ -1,4 +1,3 @@
-using HireServices.Domain.Common;
 using HireServices.Domain.Inputs;
 using HireServices.Domain.Types;
 using HireServices.Features.Customers.Data;
@@ -53,8 +52,6 @@ builder.Services.AddGraphQLServer()
     .AddType<ProviderOutput>()
     .AddType<ProviderReviewOutput>()
     .AddType<ProviderServiceOutput>();
-    //.AddType<ResultResponseType<ProviderOutput>>();
-    //.BindRuntimeType(typeof(ResultResponse<>), typeof(ResultResponseType<>));
 
 
 

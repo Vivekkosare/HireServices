@@ -1,5 +1,5 @@
 ﻿using HireServices.Domain.Common;
-using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
+using HireServices.Features.ServiceProviders.Domain.Entities;
 
 namespace HireServices.Features.ServiceProviders.Services
 {

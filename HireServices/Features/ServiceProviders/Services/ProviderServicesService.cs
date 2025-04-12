@@ -1,9 +1,7 @@
 ﻿using EFCore.BulkExtensions;
-using HireServices.Domain.Common;
 using HireServices.Features.ServiceProviders.Data;
-using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
+using HireServices.Features.ServiceProviders.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 
 namespace HireServices.Features.ServiceProviders.Services
 {

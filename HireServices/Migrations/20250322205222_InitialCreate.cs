@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace HireServices.Migrations.ProviderDb
+namespace HireServices.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -24,6 +24,11 @@ namespace HireServices.Migrations.ProviderDb
                     DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Address = table.Column<string>(type: "jsonb", nullable: false),
                     ServiceTags = table.Column<List<string>>(type: "TEXT[]", nullable: false),
+                    ServiceCategories = table.Column<List<string>>(type: "TEXT[]", nullable: false),
+                    HighlightedServices = table.Column<string>(type: "jsonb", nullable: false),
+                    AverageRating = table.Column<decimal>(type: "decimal", nullable: true),
+                    CustomersServed = table.Column<int>(type: "int", nullable: false),
+                    LatestReviews = table.Column<string>(type: "jsonb", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -37,7 +42,8 @@ namespace HireServices.Migrations.ProviderDb
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ServiceProviderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProviderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProviderId1 = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Price = table.Column<decimal>(type: "money", nullable: false),
@@ -50,17 +56,40 @@ namespace HireServices.Migrations.ProviderDb
                 {
                     table.PrimaryKey("PK_ProviderServices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProviderServices_Providers_ServiceProviderId",
-                        column: x => x.ServiceProviderId,
+                        name: "FK_ProviderServices_Providers_ProviderId",
+                        column: x => x.ProviderId,
+                        principalTable: "Providers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProviderServices_Providers_ProviderId1",
+                        column: x => x.ProviderId1,
                         principalTable: "Providers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProviderServices_ServiceProviderId",
+                name: "IX_ProviderServices_ProviderId",
                 table: "ProviderServices",
-                column: "ServiceProviderId");
+                column: "ProviderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProviderServices_ProviderId1",
+                table: "ProviderServices",
+                column: "ProviderId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Providers_ServiceCategories",
+                table: "Providers",
+                column: "ServiceCategories")
+                .Annotation("Npgsql:IndexMethod", "gin");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Providers_ServiceTags",
+                table: "Providers",
+                column: "ServiceTags")
+                .Annotation("Npgsql:IndexMethod", "gin");
         }
 
         /// <inheritdoc />

@@ -10,10 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace HireServices.Migrations.ProviderDb
+namespace HireServices.Migrations
 {
     [DbContext(typeof(ProviderDbContext))]
-    [Migration("20241216184148_InitialCreate")]
+    [Migration("20250322205222_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace HireServices.Migrations.ProviderDb
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -36,8 +36,25 @@ namespace HireServices.Migrations.ProviderDb
                         .IsRequired()
                         .HasColumnType("jsonb");
 
+                    b.Property<decimal?>("AverageRating")
+                        .HasColumnType("decimal");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CustomersServed")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HighlightedServices")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<string>("LatestReviews")
+                        .HasColumnType("jsonb");
+
+                    b.PrimitiveCollection<List<string>>("ServiceCategories")
+                        .IsRequired()
+                        .HasColumnType("TEXT[]");
 
                     b.PrimitiveCollection<List<string>>("ServiceTags")
                         .IsRequired()
@@ -47,6 +64,14 @@ namespace HireServices.Migrations.ProviderDb
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ServiceCategories");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("ServiceCategories"), "gin");
+
+                    b.HasIndex("ServiceTags");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("ServiceTags"), "gin");
 
                     b.ToTable("Providers");
                 });
@@ -77,7 +102,10 @@ namespace HireServices.Migrations.ProviderDb
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
-                    b.Property<Guid>("ServiceProviderId")
+                    b.Property<Guid>("ProviderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProviderId1")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -85,7 +113,9 @@ namespace HireServices.Migrations.ProviderDb
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceProviderId");
+                    b.HasIndex("ProviderId");
+
+                    b.HasIndex("ProviderId1");
 
                     b.ToTable("ProviderServices");
                 });
@@ -137,9 +167,22 @@ namespace HireServices.Migrations.ProviderDb
                 {
                     b.HasOne("HireServices.Features.ServiceProviders.Domain.AggregateRoots.Provider", null)
                         .WithMany()
-                        .HasForeignKey("ServiceProviderId")
+                        .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("HireServices.Features.ServiceProviders.Domain.AggregateRoots.Provider", "Provider")
+                        .WithMany("ProviderServices")
+                        .HasForeignKey("ProviderId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Provider");
+                });
+
+            modelBuilder.Entity("HireServices.Features.ServiceProviders.Domain.AggregateRoots.Provider", b =>
+                {
+                    b.Navigation("ProviderServices");
                 });
 #pragma warning restore 612, 618
         }

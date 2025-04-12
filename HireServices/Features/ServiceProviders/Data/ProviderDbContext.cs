@@ -1,4 +1,4 @@
-﻿using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
+﻿using HireServices.Features.ServiceProviders.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Text.Json;
@@ -84,11 +84,17 @@ namespace HireServices.Features.ServiceProviders.Data
 
             modelBuilder.Entity<ProviderService>()
                 .Property(sps => sps.Id)
-                .ValueGeneratedOnAdd();            
+                .ValueGeneratedOnAdd();
+
+            //modelBuilder.Entity<ProviderService>()
+            //    .HasOne<Provider>()
+            //    .WithMany()
+            //    .HasForeignKey(sps => sps.ProviderId)
+            //    .IsRequired(true);
 
             modelBuilder.Entity<ProviderService>()
-                .HasOne<Provider>()
-                .WithMany()
+                .HasOne(sp => sp.Provider)
+                .WithMany(sps => sps.ProviderServices)
                 .HasForeignKey(sps => sps.ProviderId)
                 .IsRequired(true);
 

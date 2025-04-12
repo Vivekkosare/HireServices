@@ -1,5 +1,4 @@
-﻿using HireServices.Features.ServiceProviders.Domain.AggregateRoots;
-using HireServices.Features.ServiceProviders.DTOs;
+﻿using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.GraphQL.Inputs;
 using MediatR;
 
