@@ -1,7 +1,10 @@
-﻿using HireServices.Features.ServiceProviders.DTOs;
+﻿using HireServices.Domain.Extensions;
+using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.Extensions;
 using HireServices.Features.ServiceProviders.Services;
 using MediatR;
+using System.Text.Json.Serialization.Metadata;
+using System.Text.Json;
 
 namespace HireServices.Features.ServiceProviders.Commands.UpdateServicesProvider
 {
@@ -20,6 +23,15 @@ namespace HireServices.Features.ServiceProviders.Commands.UpdateServicesProvider
             {
                 throw new Exception("Services provider not found to update");
             }
+            provider.ContactInfo = request.UpdateInput.ContactInfoInput.ToContactInfo();
+            
+            var options = new JsonSerializerOptions
+            {
+                TypeInfoResolver = new DefaultJsonTypeInfoResolver()
+            };
+            provider.Address = JsonDocument.Parse(JsonSerializer.Serialize(request.UpdateInput.AddressInput.ToAddress(), options));
+            provider.UpdatedAt = DateTime.UtcNow;
+
             var providerUpdated = await _providerService.UpdateProviderAsync(request.ProviderId, provider);
             if (providerUpdated == null)
             {

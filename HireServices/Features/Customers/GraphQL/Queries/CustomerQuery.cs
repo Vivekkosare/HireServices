@@ -20,7 +20,7 @@ namespace HireServices.Features.Customers.GraphQL.Queries
             return await mediator.Send(new GetCustomersQuery(pageSize));
         }
 
-        public async Task<Customer> GetCustomer([Service] IMediator mediator, Guid customerId)
+        public async Task<CustomerOutput> GetCustomer([Service] IMediator mediator, Guid customerId)
         {
             return await mediator.Send(new GetCustomerQuery(customerId));
         }

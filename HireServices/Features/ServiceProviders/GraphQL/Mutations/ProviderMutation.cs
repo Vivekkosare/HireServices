@@ -24,9 +24,9 @@ namespace HireServices.Features.ServiceProviders.GraphQL.Mutations
             var providerResponse = await mediator.Send(new CreateProviderCommand(providerInput));
             return providerResponse;
         }
-        public async Task<ProviderOutput> UpdateProvider([Service] IMediator mediator, Guid servicesProviderId, ProviderInput providerInput)
+        public async Task<ProviderOutput> UpdateProvider([Service] IMediator mediator, Guid servicesProviderId, ProviderUpdateInput providerUpdateInput)
         {
-            return await mediator.Send(new UpdateProviderCommand(servicesProviderId, providerInput));
+            return await mediator.Send(new UpdateProviderCommand(servicesProviderId, providerUpdateInput));
         }
         public async Task DeleteProvider([Service] IMediator mediator, Guid providerId)
         {

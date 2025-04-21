@@ -22,7 +22,9 @@ namespace HireServices.Features.Customers.Commands.UpdateCustomer
             {
                 throw new Exception("Customer not found");
             }
-            customerToBeUpdated = customerToBeUpdated.MapCustomerToUpdate(customer);
+            customerToBeUpdated.ContactInfo = customer.ContactInfo;
+            customerToBeUpdated.Addresses = customer.Addresses;
+            customerToBeUpdated.UpdatedAt = DateTime.UtcNow;
 
             var updatedCustomer = await _customerService.UpdateCustomerAsync(customerToBeUpdated);
             return updatedCustomer.ToCustomerOutput();
