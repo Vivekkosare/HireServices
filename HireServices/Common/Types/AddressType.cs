@@ -1,7 +1,7 @@
-﻿using HireServices.Domain.ValueObjects;
+﻿using HireServices.Common.ValueObjects;
 using HotChocolate.Types;
 
-namespace HireServices.Domain.Types
+namespace HireServices.Common.Types
 {
     public class AddressType : ObjectType<Address>
     {

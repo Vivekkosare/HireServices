@@ -1,7 +1,7 @@
-﻿using HireServices.Domain.ValueObjects;
-using System.Text.Json.Serialization.Metadata;
+﻿using System.Text.Json.Serialization.Metadata;
 using System.Text.Json;
 using HireServices.Features.ServiceProviders.Domain.Entities;
+using HireServices.Common.ValueObjects;
 
 namespace HireServices.Features.ServiceProviders.Domain.Builders
 {

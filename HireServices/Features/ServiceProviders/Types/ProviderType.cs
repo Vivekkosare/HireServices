@@ -1,4 +1,4 @@
-﻿using HireServices.Domain.Types;
+﻿using HireServices.Common.Types;
 using HireServices.Features.ServiceProviders.Domain.Entities;
 
 namespace HireServices.Features.ServiceProviders.Types

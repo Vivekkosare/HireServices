@@ -1,4 +1,4 @@
-﻿using HireServices.Domain.Types;
+﻿using HireServices.Common.Types;
 using HireServices.Features.Customers.Domain.Entities;
 using HireServices.Features.Customers.Resolvers;
 using HotChocolate.Types;

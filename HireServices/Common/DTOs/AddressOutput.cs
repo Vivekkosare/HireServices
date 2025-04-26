@@ -1,7 +1,7 @@
 ﻿using HireServices.Domain.Common;
 using System.ComponentModel.DataAnnotations;
 
-namespace HireServices.Domain.DTOs
+namespace HireServices.Common.DTOs
 {
     public record AddressOutput
     {

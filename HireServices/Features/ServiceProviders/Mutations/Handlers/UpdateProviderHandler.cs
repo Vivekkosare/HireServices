@@ -1,11 +1,11 @@
-﻿using HireServices.Domain.Extensions;
-using HireServices.Features.ServiceProviders.DTOs;
+﻿using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.Extensions;
 using HireServices.Features.ServiceProviders.Services;
 using MediatR;
 using System.Text.Json.Serialization.Metadata;
 using System.Text.Json;
 using HireServices.Features.ServiceProviders.Inputs;
+using HireServices.Common.Extensions;
 
 namespace HireServices.Features.ServiceProviders.Mutations.Handlers
 {

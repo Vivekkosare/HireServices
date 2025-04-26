@@ -1,4 +1,4 @@
-﻿using HireServices.Domain.Inputs;
+﻿using HireServices.Common.Inputs;
 
 namespace HireServices.Features.ServiceProviders.Inputs
 {

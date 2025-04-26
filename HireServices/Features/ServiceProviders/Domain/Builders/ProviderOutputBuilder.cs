@@ -1,6 +1,6 @@
-﻿using HireServices.Domain.DTOs;
-using HireServices.Domain.Extensions;
-using HireServices.Domain.ValueObjects;
+﻿using HireServices.Common.DTOs;
+using HireServices.Common.Extensions;
+using HireServices.Common.ValueObjects;
 using HireServices.Features.ServiceProviders.Domain.Entities;
 using HireServices.Features.ServiceProviders.DTOs;
 using System.Text.Json;

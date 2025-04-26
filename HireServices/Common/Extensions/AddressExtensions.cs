@@ -1,8 +1,8 @@
-﻿using HireServices.Domain.DTOs;
-using HireServices.Domain.Inputs;
-using HireServices.Domain.ValueObjects;
+﻿using HireServices.Common.DTOs;
+using HireServices.Common.Inputs;
+using HireServices.Common.ValueObjects;
 
-namespace HireServices.Domain.Extensions
+namespace HireServices.Common.Extensions
 {
     public static class AddressExtensions
     {
@@ -25,11 +25,11 @@ namespace HireServices.Domain.Extensions
 
         public static AddressOutput ToAddressOutput(this Address address)
         {
-            return new AddressOutput(address.Street, 
-                address.City, 
-                address.ZipCode, 
-                address.State, 
-                address.Country, 
+            return new AddressOutput(address.Street,
+                address.City,
+                address.ZipCode,
+                address.State,
+                address.Country,
                 address.Id);
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace HireServices.Domain.Common
+﻿namespace HireServices.Common
 {
     public abstract class BaseEntity
     {

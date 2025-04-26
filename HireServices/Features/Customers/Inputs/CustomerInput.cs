@@ -1,4 +1,4 @@
-﻿using HireServices.Domain.Inputs;
+﻿using HireServices.Common.Inputs;
 using HotChocolate;
 using System.ComponentModel.DataAnnotations;
 

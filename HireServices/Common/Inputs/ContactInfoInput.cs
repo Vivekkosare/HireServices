@@ -1,7 +1,7 @@
 ﻿using HotChocolate;
 using System.ComponentModel.DataAnnotations;
 
-namespace HireServices.Domain.Inputs
+namespace HireServices.Common.Inputs
 {
     public class ContactInfoInput
     {

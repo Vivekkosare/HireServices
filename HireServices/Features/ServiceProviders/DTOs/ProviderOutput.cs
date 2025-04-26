@@ -1,4 +1,4 @@
-﻿using HireServices.Domain.DTOs;
+﻿using HireServices.Common.DTOs;
 
 namespace HireServices.Features.ServiceProviders.DTOs
 {

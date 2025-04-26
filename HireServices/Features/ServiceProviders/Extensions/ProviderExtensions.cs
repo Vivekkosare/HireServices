@@ -1,4 +1,4 @@
-﻿using HireServices.Domain.Extensions;
+﻿using HireServices.Common.Extensions;
 using HireServices.Features.ServiceProviders.Domain.Builders;
 using HireServices.Features.ServiceProviders.Domain.Entities;
 using HireServices.Features.ServiceProviders.DTOs;

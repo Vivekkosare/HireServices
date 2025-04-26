@@ -1,5 +1,5 @@
-using HireServices.Domain.Inputs;
-using HireServices.Domain.Types;
+using HireServices.Common.Inputs;
+using HireServices.Common.Types;
 using HireServices.Features.Customers.Data;
 using HireServices.Features.Customers.Inputs;
 using HireServices.Features.Customers.Mutations;

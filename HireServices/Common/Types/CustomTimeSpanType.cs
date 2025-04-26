@@ -1,6 +1,6 @@
 ﻿using HotChocolate.Language;
 
-namespace HireServices.Domain.Types
+namespace HireServices.Common.Types
 {
     public class CustomTimeSpanType : ScalarType<TimeSpan, StringValueNode>
     {
@@ -24,7 +24,7 @@ namespace HireServices.Domain.Types
 
         protected override TimeSpan ParseLiteral(StringValueNode valueSyntax)
         {
-            if(TimeSpan.TryParse(valueSyntax.Value, out var timeSpan))
+            if (TimeSpan.TryParse(valueSyntax.Value, out var timeSpan))
             {
                 return timeSpan;
             }
@@ -38,7 +38,7 @@ namespace HireServices.Domain.Types
         public override bool TrySerialize(object? runtimeValue, out object? resultValue)
         {
             //return base.TrySerialize(runtimeValue, out resultValue);
-            if(runtimeValue is TimeSpan timeSpan)
+            if (runtimeValue is TimeSpan timeSpan)
             {
                 resultValue = timeSpan.ToString();
                 return true;
@@ -50,7 +50,7 @@ namespace HireServices.Domain.Types
         public override bool TryDeserialize(object? resultValue, out object? runtimeValue)
         {
             //return base.TryDeserialize(resultValue, out runtimeValue);
-            if(resultValue is string str && TimeSpan.TryParse(str, out var timeSpan))
+            if (resultValue is string str && TimeSpan.TryParse(str, out var timeSpan))
             {
                 runtimeValue = timeSpan;
                 return true;

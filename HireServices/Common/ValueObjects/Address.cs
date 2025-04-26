@@ -1,4 +1,4 @@
-﻿namespace HireServices.Domain.ValueObjects
+﻿namespace HireServices.Common.ValueObjects
 {
     public class Address
     {

@@ -1,4 +1,4 @@
-﻿using HireServices.Domain.Common;
+﻿using HireServices.Common;
 using System.Text.Json;
 
 namespace HireServices.Features.ServiceProviders.Domain.Entities

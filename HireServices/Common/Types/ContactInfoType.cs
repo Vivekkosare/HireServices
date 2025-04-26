@@ -1,8 +1,8 @@
-﻿using HireServices.Domain.ValueObjects;
+﻿using HireServices.Common.ValueObjects;
 using HotChocolate.Types;
 using System.ComponentModel.DataAnnotations;
 
-namespace HireServices.Domain.Types
+namespace HireServices.Common.Types
 {
     public class ContactInfoType : ObjectType<ContactInfo>
     {

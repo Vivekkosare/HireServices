@@ -1,5 +1,5 @@
-﻿using HireServices.Domain.Common;
-using HireServices.Domain.ValueObjects;
+﻿using HireServices.Common;
+using HireServices.Common.ValueObjects;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 

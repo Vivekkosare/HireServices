@@ -1,5 +1,5 @@
-﻿using HireServices.Domain.Common;
-using HireServices.Domain.DTOs;
+﻿using HireServices.Common.DTOs;
+using HireServices.Domain.Common;
 using HireServices.Domain.Inputs;
 using System.Text.Json;
 

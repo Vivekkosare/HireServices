@@ -1,4 +1,4 @@
-﻿using HireServices.Domain.ValueObjects;
+﻿using HireServices.Common.ValueObjects;
 using HireServices.Features.Customers.Domain.Entities;
 using System.Text.Json;
 

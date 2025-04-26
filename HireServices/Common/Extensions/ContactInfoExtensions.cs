@@ -1,8 +1,8 @@
-﻿using HireServices.Domain.DTOs;
-using HireServices.Domain.Inputs;
-using HireServices.Domain.ValueObjects;
+﻿using HireServices.Common.DTOs;
+using HireServices.Common.Inputs;
+using HireServices.Common.ValueObjects;
 
-namespace HireServices.Domain.Extensions
+namespace HireServices.Common.Extensions
 {
     public static class ContactInfoExtensions
     {
@@ -19,10 +19,10 @@ namespace HireServices.Domain.Extensions
 
         public static ContactInfoOutput ToContactInfoOutput(this ContactInfo contactInfo)
         {
-            return new ContactInfoOutput(contactInfo.FirstName, 
-                contactInfo.LastName, 
-                contactInfo.Email, 
-                contactInfo.PhoneNumber, 
+            return new ContactInfoOutput(contactInfo.FirstName,
+                contactInfo.LastName,
+                contactInfo.Email,
+                contactInfo.PhoneNumber,
                 contactInfo.DateOfBirth);
         }
     }
