@@ -36,12 +36,11 @@ namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
                     }
                     //All services for provider
                     var providerServicesInput = request.Input.ServicesInput;
-                    List<string> serviceCategories = providerServicesInput.Select(x => x.CategoryInput.Name).ToList();
+                    List<string> serviceCategories = providerServicesInput.Select(x => x.CategoryInput.Name).Distinct().ToList();
 
                     //Fetch the first 3 services (those will be the highlighted services)
-                    request.Input.ServicesInput = request.Input.ServicesInput.Take(3).ToList();
+                    request.Input.ServicesInput = request.Input.ServicesInput.Distinct().Take(3).ToList();
 
-                    string tags = string.Empty;
                     var serviceProvider = request.Input.ToServiceProvider();
                     List<string> servicesTagsList = request.Input.ServicesInput.Select(x => x.Name).ToList();
 
@@ -49,7 +48,7 @@ namespace HireServices.Features.ServiceProviders.Commands.CreateServicesProvider
                     serviceProvider.ServiceCategories = serviceCategories;
 
                     //Adds the provider profile in the provider table
-                    var providerCreated = await _providerService.CreateProviderAsync(request.Input.ToServiceProvider());
+                    var providerCreated = await _providerService.CreateProviderAsync(serviceProvider);
                     if (providerCreated == null)
                     {
                         var msg = "An error occured while creating provider";
