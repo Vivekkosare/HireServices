@@ -2,7 +2,7 @@
 using HireServices.Features.ServiceProviders.Domain.Builders;
 using HireServices.Features.ServiceProviders.Domain.Entities;
 using HireServices.Features.ServiceProviders.DTOs;
-using HireServices.Features.ServiceProviders.GraphQL.Inputs;
+using HireServices.Features.ServiceProviders.Inputs;
 
 namespace HireServices.Features.ServiceProviders.Extensions
 {

@@ -3,7 +3,7 @@ using HireServices.Domain.Inputs;
 using HireServices.Domain.ValueObjects;
 using HireServices.Features.Customers.Domain.Entities;
 using HireServices.Features.Customers.DTOs;
-using HireServices.Features.Customers.GraphQL.Inputs;
+using HireServices.Features.Customers.Inputs;
 using System.Text.Json;
 using static HireServices.Features.Customers.DTOs.CustomerOutput;
 

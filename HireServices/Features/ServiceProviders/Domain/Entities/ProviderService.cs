@@ -1,5 +1,4 @@
 ﻿using HireServices.Domain.Common;
-using HireServices.Features.ServiceProviders.GraphQL.Inputs;
 using System.Text.Json;
 
 namespace HireServices.Features.ServiceProviders.Domain.Entities

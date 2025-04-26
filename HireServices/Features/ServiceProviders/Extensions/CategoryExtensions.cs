@@ -1,5 +1,5 @@
 ﻿using HireServices.Features.ServiceProviders.Domain.ValueObjects;
-using HireServices.Features.ServiceProviders.GraphQL.Inputs;
+using HireServices.Features.ServiceProviders.Inputs;
 
 namespace HireServices.Features.ServiceProviders.Extensions
 {

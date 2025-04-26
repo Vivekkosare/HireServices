@@ -1,5 +1,5 @@
 ﻿using HireServices.Features.ServiceProviders.Domain.Entities;
-using HireServices.Features.ServiceProviders.GraphQL.Inputs;
+using HireServices.Features.ServiceProviders.Inputs;
 using System.Text.Json;
 
 namespace HireServices.Features.ServiceProviders.Domain.Builders

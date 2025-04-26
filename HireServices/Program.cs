@@ -1,19 +1,19 @@
 using HireServices.Domain.Inputs;
 using HireServices.Domain.Types;
 using HireServices.Features.Customers.Data;
-using HireServices.Features.Customers.GraphQL.Inputs;
-using HireServices.Features.Customers.GraphQL.Mutations;
-using HireServices.Features.Customers.GraphQL.Queries;
-using HireServices.Features.Customers.GraphQL.Resolvers;
-using HireServices.Features.Customers.GraphQL.Types;
+using HireServices.Features.Customers.Inputs;
+using HireServices.Features.Customers.Mutations;
+using HireServices.Features.Customers.Queries;
+using HireServices.Features.Customers.Resolvers;
 using HireServices.Features.Customers.Services;
+using HireServices.Features.Customers.Types;
 using HireServices.Features.ServiceProviders.Data;
 using HireServices.Features.ServiceProviders.DTOs;
-using HireServices.Features.ServiceProviders.GraphQL.Inputs;
-using HireServices.Features.ServiceProviders.GraphQL.Mutations;
-using HireServices.Features.ServiceProviders.GraphQL.Query;
-using HireServices.Features.ServiceProviders.GraphQL.Types;
+using HireServices.Features.ServiceProviders.Inputs;
+using HireServices.Features.ServiceProviders.Mutations;
+using HireServices.Features.ServiceProviders.Query;
 using HireServices.Features.ServiceProviders.Services;
+using HireServices.Features.ServiceProviders.Types;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateSlimBuilder(args);
