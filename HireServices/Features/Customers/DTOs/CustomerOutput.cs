@@ -1,6 +1,4 @@
 ﻿using HireServices.Common.DTOs;
-using HireServices.Domain.Common;
-using HireServices.Domain.Inputs;
 using System.Text.Json;
 
 namespace HireServices.Features.Customers.DTOs

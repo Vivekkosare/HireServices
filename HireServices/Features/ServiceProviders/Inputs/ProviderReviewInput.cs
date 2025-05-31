@@ -1,6 +1,4 @@
-﻿using HireServices.Domain.Common;
-
-namespace HireServices.Features.ServiceProviders.Inputs
+﻿namespace HireServices.Features.ServiceProviders.Inputs
 {
     public class ProviderReviewInput
     {

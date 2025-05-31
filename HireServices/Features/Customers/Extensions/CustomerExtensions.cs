@@ -1,11 +1,8 @@
 ﻿using HireServices.Common.Extensions;
 using HireServices.Common.ValueObjects;
-using HireServices.Domain.Inputs;
 using HireServices.Features.Customers.Domain.Entities;
 using HireServices.Features.Customers.DTOs;
 using HireServices.Features.Customers.Inputs;
-using System.Text.Json;
-using static HireServices.Features.Customers.DTOs.CustomerOutput;
 
 namespace HireServices.Features.Customers.Extensions
 {

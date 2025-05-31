@@ -1,5 +1,4 @@
-﻿using HireServices.Domain.Common;
-using HireServices.Features.ServiceProviders.Domain.Entities;
+﻿using HireServices.Features.ServiceProviders.Domain.Entities;
 
 namespace HireServices.Features.ServiceProviders.Services
 {
