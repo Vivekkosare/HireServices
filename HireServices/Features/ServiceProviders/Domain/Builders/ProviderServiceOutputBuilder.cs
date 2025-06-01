@@ -35,6 +35,12 @@ namespace HireServices.Features.ServiceProviders.Domain.Builders
             _service.Price = price;
             return this;
         }
+
+        public ProviderServiceOutputBuilder WithCurrency(string currency)
+        {
+            _service.Currency = currency;
+            return this;
+        }
         public ProviderServiceOutputBuilder WithDuration(TimeSpan duration)
         {
             _service.Duration = duration;

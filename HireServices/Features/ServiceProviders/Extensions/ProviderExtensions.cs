@@ -61,6 +61,7 @@ namespace HireServices.Features.ServiceProviders.Extensions
                     .WithName(providerServiceInput.Name)
                     .WithDescription(providerServiceInput.Description)
                     .WithPrice(providerServiceInput.Price)
+                    .WithCurrency(providerServiceInput.Currency)
                     .WithDuration(providerServiceInput.Duration)
                     .WithCategory(providerServiceInput.CategoryInput)
                     .Build();
@@ -71,10 +72,11 @@ namespace HireServices.Features.ServiceProviders.Extensions
         {
             return providerServices.Select(ps =>
                 new ProviderServiceOutputBuilder()
-                .WithId(ps.Id)  
+                .WithId(ps.Id)
                 .WithName(ps.Name)
                 .WithDescription(ps.Description)
                 .WithPrice(ps.Price)
+                .WithCurrency(ps.Currency)
                 .WithDuration(ps.Duration)
                 .WithCategory(ps.Category)
                 .WithCreatedAt(ps.CreatedAt)

@@ -10,6 +10,7 @@ namespace HireServices.Features.ServiceProviders.DTOs
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public string Currency { get; set; }
         public TimeSpan Duration { get; set; }
         public CategoryOutput Category { get; set; }
         public DateTime CreatedAt { get; set; }

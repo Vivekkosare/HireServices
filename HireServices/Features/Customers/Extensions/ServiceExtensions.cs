@@ -12,6 +12,7 @@ namespace HireServices.Features.Customers.Extensions
                 //.WithId(serviceInput.Id)
                 .WithCategory(serviceInput.CategoryInput)
                 .WithPrice(serviceInput.Price)
+                .WithCurrency(serviceInput.Currency)
                 .WithDescription(serviceInput.Description)
                 .WithDuration(serviceInput.Duration)
                 .WithName(serviceInput.Name)

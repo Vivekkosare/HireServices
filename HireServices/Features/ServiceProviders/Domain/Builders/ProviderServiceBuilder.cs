@@ -9,21 +9,8 @@ namespace HireServices.Features.ServiceProviders.Domain.Builders
         private ProviderService _service;
         public ProviderServiceBuilder()
         {
-            _service = new ProviderService();
+           _service = new ProviderService();
         }
-
-        //public ProviderServiceBuilder WithId(Guid? id)
-        //{
-        //    if (id is null)
-        //    {
-        //        _service.Id = Guid.NewGuid();
-        //    }
-        //    else if (id.HasValue)
-        //    {
-        //        _service.Id = id;
-        //    }
-        //    return this;
-        //}
 
         public ProviderServiceBuilder WithName(string name)
         {
@@ -38,6 +25,12 @@ namespace HireServices.Features.ServiceProviders.Domain.Builders
         public ProviderServiceBuilder WithPrice(decimal price)
         {
             _service.Price = price;
+            return this;
+        }
+
+        public ProviderServiceBuilder WithCurrency(string currency)
+        {
+            _service.Currency = currency;
             return this;
         }
 

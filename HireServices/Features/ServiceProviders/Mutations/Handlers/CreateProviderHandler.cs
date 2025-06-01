@@ -65,19 +65,19 @@ namespace HireServices.Features.ServiceProviders.Mutations.Handlers
 
                     //Adds the services into provider services table
                     providerServices.ForEach(x => x.ProviderId = providerCreated.Id);
-                    providerServices = await _providerService.BulkCreateProviderServicesAsync(providerServices);
+                    var providerServicesCreated = await _providerService.BulkCreateProviderServicesAsync(providerServices);
 
                     // Take the first 3 services to be highlighted
                     // and update the provider with these services
-                    var highlightedServices = providerServices.Take(3).ToList();
+                    var highlightedServices = providerServicesCreated.Take(3).ToList();
                     highlightedServices.ForEach(x => x.ProviderId = providerCreated.Id);
 
                     providerCreated.HighlightedServices = JsonDocument.Parse(JsonSerializer.Serialize(highlightedServices));
 
-                    _providerDbContext.Providers.Update(providerCreated);
+                    await _providerDbContext.SaveChangesAsync();
 
 
-                    List<ProviderServiceOutput> providerServiceOutputs = providerServices.ToProviderServiceOutputList();
+                    List<ProviderServiceOutput> providerServiceOutputs = providerServicesCreated.ToProviderServiceOutputList();
                     provider.HighlightedServices = providerServiceOutputs.Take(3).ToList();
 
                     await transaction.CommitAsync();

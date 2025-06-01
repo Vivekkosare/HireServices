@@ -13,6 +13,9 @@ namespace HireServices.Features.ServiceProviders.Inputs
         public decimal Price { get; set; }
 
         [GraphQLNonNullType]
+        public required string Currency { get; set; }
+
+        [GraphQLNonNullType]
         public string Duration { get; set; }
 
         [GraphQLNonNullType]

@@ -63,6 +63,7 @@ namespace HireServices.Features.ServiceProviders.Domain.Builders
                         .WithName(service.Name)
                         .WithDescription(service.Description)
                         .WithPrice(service.Price)
+                        .WithCurrency(service.Currency)
                         .WithDuration(service.Duration)
                         .WithCategory(service.Category)
                         .WithCreatedAt(service.CreatedAt)
