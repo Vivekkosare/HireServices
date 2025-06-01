@@ -67,7 +67,13 @@ namespace HireServices.Features.ServiceProviders.Mutations.Handlers
                     providerServices.ForEach(x => x.ProviderId = providerCreated.Id);
                     providerServices = await _providerService.BulkCreateProviderServicesAsync(providerServices);
 
-                    providerCreated.HighlightedServices = JsonDocument.Parse(JsonSerializer.Serialize(providerServices.Take(3)));
+                    // Take the first 3 services to be highlighted
+                    // and update the provider with these services
+                    var highlightedServices = providerServices.Take(3).ToList();
+                    highlightedServices.ForEach(x => x.ProviderId = providerCreated.Id);
+
+                    providerCreated.HighlightedServices = JsonDocument.Parse(JsonSerializer.Serialize(highlightedServices));
+
                     _providerDbContext.Providers.Update(providerCreated);
 
 

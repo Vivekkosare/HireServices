@@ -49,7 +49,8 @@ namespace HireServices.Features.ServiceProviders.Domain.Builders
             }
             else
             {
-                _service.Duration = TimeSpan.Parse(duration);
+                // _service.Duration = TimeSpan.Parse(duration);
+                _service.Duration = System.Xml.XmlConvert.ToTimeSpan(duration);
             }
             return this;
         }
