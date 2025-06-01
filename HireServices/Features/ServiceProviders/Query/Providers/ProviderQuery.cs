@@ -1,5 +1,6 @@
 ﻿using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.Query.Handlers;
+using HireServices.Features.ServiceProviders.Query.ProviderServices.Handlers;
 using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Query
@@ -24,5 +25,11 @@ namespace HireServices.Features.ServiceProviders.Query
         {
             return await mediator.Send(new GetProviderQuery(servicesProviderId));
         }
+
+        public async Task<List<ProviderServiceOutput>> GetProviderServicesAsync([Service] IMediator mediator, [GraphQLNonNullType] Guid providerId)
+        {
+            return await mediator.Send(new GetProviderServicesQuery(providerId));
+        }
+
     }
 }

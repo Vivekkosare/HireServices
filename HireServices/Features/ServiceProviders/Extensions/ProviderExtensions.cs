@@ -73,6 +73,7 @@ namespace HireServices.Features.ServiceProviders.Extensions
             return providerServices.Select(ps =>
                 new ProviderServiceOutputBuilder()
                 .WithId(ps.Id)
+                .WithProviderId(ps.ProviderId)
                 .WithName(ps.Name)
                 .WithDescription(ps.Description)
                 .WithPrice(ps.Price)

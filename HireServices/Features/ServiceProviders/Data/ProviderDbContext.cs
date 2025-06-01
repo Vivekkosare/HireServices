@@ -118,8 +118,13 @@ namespace HireServices.Features.ServiceProviders.Data
                 .IsRequired(true);
 
             modelBuilder.Entity<ProviderService>()
-               .Property(sps => sps.Price).HasColumnType("money")
+               .Property(sps => sps.Price).HasColumnType("decimal(12,2)")
                .IsRequired(true);
+
+            modelBuilder.Entity<ProviderService>()
+                .Property(sps => sps.Currency)
+                .HasColumnType("varchar(3)")
+                .IsRequired(true);
 
             modelBuilder.Entity<ProviderService>()
                 .Property(sps => sps.Duration).HasColumnType("interval")

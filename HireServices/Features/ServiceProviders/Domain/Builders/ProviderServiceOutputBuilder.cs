@@ -38,7 +38,7 @@ namespace HireServices.Features.ServiceProviders.Domain.Builders
 
         public ProviderServiceOutputBuilder WithCurrency(string currency)
         {
-            _service.Currency = currency;
+            _service.Currency = string.IsNullOrWhiteSpace(currency) ? "USD" : currency.ToUpperInvariant();
             return this;
         }
         public ProviderServiceOutputBuilder WithDuration(TimeSpan duration)
