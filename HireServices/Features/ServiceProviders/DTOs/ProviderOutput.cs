@@ -13,6 +13,7 @@ namespace HireServices.Features.ServiceProviders.DTOs
         public int CustomersServed { get; set; }
         public List<ProviderReviewOutput>? LatestReviews { get; set; }
         public Guid Id { get; set; }
+        public int Age { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         

@@ -90,6 +90,16 @@ namespace HireServices.Features.ServiceProviders.Domain.Builders
             _serviceProviderOutput.CustomersServed = customersServed;
             return this;
         }
+
+        public ProviderOutputBuilder WithAge(DateTime dateOfBirth)
+        {
+            // Calculate age based on date of birth 
+            var age = DateTime.Now.Year - dateOfBirth.Year;
+            if (dateOfBirth > DateTime.Now.AddYears(-age)) age--;
+
+            _serviceProviderOutput.Age = age;
+            return this;
+        }
         public ProviderOutput Build()
         {
             return _serviceProviderOutput;

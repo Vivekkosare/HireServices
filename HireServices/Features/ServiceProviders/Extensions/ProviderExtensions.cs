@@ -42,6 +42,7 @@ namespace HireServices.Features.ServiceProviders.Extensions
                 .WithServiceTags(serviceProvider.ServiceTags)
                 .WithServiceCategories(serviceProvider.ServiceCategories)
                 .WithHighlightedServices(serviceProvider)
+                .WithAge(serviceProvider.ContactInfo.DateOfBirth)
                 .WithCreatedAt(serviceProvider.CreatedAt)
                 .WithUpdatedAt(serviceProvider.UpdatedAt)
                 .Build();
