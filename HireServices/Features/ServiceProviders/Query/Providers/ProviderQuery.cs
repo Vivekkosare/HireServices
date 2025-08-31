@@ -32,6 +32,11 @@ namespace HireServices.Features.ServiceProviders.Query
             return await mediator.Send(new GetProviderByPhoneNoRequest(phoneNo));
         }
 
+        public async Task<bool> ProviderExistsByPhoneNo([Service] IMediator mediator, [GraphQLNonNullType] string phoneNo)
+        {
+            return await mediator.Send(new ProviderExistsRequest(phoneNo));
+        }
+
         public async Task<List<ProviderServiceOutput>> GetProviderServicesAsync([Service] IMediator mediator, [GraphQLNonNullType] Guid providerId)
         {
             return await mediator.Send(new GetProviderServicesQuery(providerId));

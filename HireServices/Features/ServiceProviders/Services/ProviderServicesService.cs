@@ -42,6 +42,11 @@ namespace HireServices.Features.ServiceProviders.Services
             return serviceProvider;
         }
 
+        public async Task<bool> ProviderExistsByPhoneNoAsync(string phoneNumber)
+        {
+            return await _providerDbContext.Providers.AnyAsync(x => x.ContactInfo.PhoneNumber == phoneNumber);
+        }
+
         public async Task<List<Provider>> GetProvidersAsync(int pageSize)
         {
             return await _providerDbContext.Providers.Take(pageSize).ToListAsync();
