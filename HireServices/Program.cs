@@ -69,9 +69,15 @@ var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<stri
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigins", policy =>
+    // options.AddPolicy("AllowSpecificOrigins", policy =>
+    // {
+    //     policy.WithOrigins(allowedOrigins)
+    //           .AllowAnyHeader()
+    //           .AllowAnyMethod();
+    // });
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins(allowedOrigins)
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -79,7 +85,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseCors("AllowSpecificOrigins");
+// app.UseCors("AllowSpecificOrigins");
+app.UseCors("AllowAll");
 
 //if (app.Environment.IsDevelopment())
 //{

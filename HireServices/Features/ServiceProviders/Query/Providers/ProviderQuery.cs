@@ -1,7 +1,5 @@
 ﻿using HireServices.Features.ServiceProviders.DTOs;
-using HireServices.Features.ServiceProviders.Query.Handlers;
 using HireServices.Features.ServiceProviders.Query.Providers.Handlers;
-using HireServices.Features.ServiceProviders.Query.ProviderServices.Handlers;
 using MediatR;
 
 namespace HireServices.Features.ServiceProviders.Query
