@@ -1,4 +1,5 @@
-﻿using HireServices.Features.ServiceProviders.Data;
+﻿using HireServices.Common.Exceptions;
+using HireServices.Features.ServiceProviders.Data;
 using HireServices.Features.ServiceProviders.Services;
 using MediatR;
 
@@ -28,13 +29,13 @@ namespace HireServices.Features.ServiceProviders.Mutations.Handlers
                     var providerServices = await _providerService.GetProviderServicesByProviderIdAsync(request.ProviderId);
                     if (providerServices is null || providerServices.Count == 0)
                     {
-                        throw new Exception($"Services not found for providerId: {request.ProviderId}");
+                        throw new NotFoundException($"Services not found for providerId: {request.ProviderId}");
                     }
 
                     providerDeleted = await _providerService.DeleteProviderAsync(request.ProviderId);
                     if (!providerDeleted)
                     {
-                        throw new Exception("Error deleting services provider");
+                        throw new BusinessRuleException("Error deleting services provider");
                     }
                     await transaction.CommitAsync();
                 }

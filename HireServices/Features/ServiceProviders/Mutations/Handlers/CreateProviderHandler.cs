@@ -1,4 +1,5 @@
-﻿using HireServices.Features.ServiceProviders.Data;
+﻿using HireServices.Common.Exceptions;
+using HireServices.Features.ServiceProviders.Data;
 using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.Extensions;
 using HireServices.Features.ServiceProviders.Inputs;
@@ -36,7 +37,7 @@ namespace HireServices.Features.ServiceProviders.Mutations.Handlers
                     var serviceProviderExist = await _providerService.GetProviderByPhoneNumberAsync(request.Input.ContactInfoInput.PhoneNumber);
                     if (serviceProviderExist is not null)
                     {
-                        throw new GraphQLException("Service provider already exist");
+                        throw new BusinessRuleException("Service provider already exist");
                     }
                     //All services for provider
                     var providerServicesInput = request.Input.ServicesInput;
@@ -57,7 +58,7 @@ namespace HireServices.Features.ServiceProviders.Mutations.Handlers
                     {
                         var msg = "An error occured while creating provider";
                         _logger.LogError(msg);
-                        throw new GraphQLException(msg);
+                        throw new BusinessRuleException(msg);
                     }
                     provider = providerCreated.ToProviderOutput();
 

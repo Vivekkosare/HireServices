@@ -1,3 +1,6 @@
+using FluentValidation;
+using HireServices.Common.Behaviors;
+using HireServices.Common.ErrorHandling;
 using HireServices.Common.Inputs;
 using HireServices.Common.Types;
 using HireServices.Features.Customers.Data;
@@ -11,14 +14,17 @@ using HireServices.Features.ServiceProviders.Data;
 using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.Inputs;
 using HireServices.Features.ServiceProviders.Mutations;
-using HireServices.Features.ServiceProviders.Query;
+using HireServices.Features.ServiceProviders.Queries;
 using HireServices.Features.ServiceProviders.Services;
 using HireServices.Features.ServiceProviders.Types;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.AddServiceDefaults();
 
 
@@ -51,7 +57,8 @@ builder.Services.AddGraphQLServer()
     .AddType<CategoryOutput>()
     .AddType<ProviderOutput>()
     .AddType<ProviderReviewOutput>()
-    .AddType<ProviderServiceOutput>();
+    .AddType<ProviderServiceOutput>()
+    .AddErrorFilter<GraphQLErrorFilter>();
 
 
 

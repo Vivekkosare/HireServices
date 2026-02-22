@@ -1,4 +1,5 @@
-﻿using HireServices.Features.Customers.DTOs;
+﻿using HireServices.Common.Exceptions;
+using HireServices.Features.Customers.DTOs;
 using HireServices.Features.Customers.Extensions;
 using HireServices.Features.Customers.Services;
 using MediatR;
@@ -19,6 +20,10 @@ namespace HireServices.Features.Customers.Queries.Handlers
         public async Task<CustomerOutput> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
         {
             var customer = await _customerService.GetCustomerAsync(request.customerId);
+            if (customer == null)
+            {
+                throw new NotFoundException("Customer not found");
+            }
             return customer.ToCustomerOutput();
         }
     }

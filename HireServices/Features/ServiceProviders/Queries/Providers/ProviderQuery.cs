@@ -1,8 +1,8 @@
 ﻿using HireServices.Features.ServiceProviders.DTOs;
-using HireServices.Features.ServiceProviders.Query.Providers.Handlers;
+using HireServices.Features.ServiceProviders.Queries.Providers.Handlers;
 using MediatR;
 
-namespace HireServices.Features.ServiceProviders.Query
+namespace HireServices.Features.ServiceProviders.Queries
 {
     [ExtendObjectType(Name = "Query")]
     public class ProviderQueryExtension : ProviderQuery
@@ -27,12 +27,12 @@ namespace HireServices.Features.ServiceProviders.Query
 
         public async Task<ProviderOutput?> GetProviderByPhoneNo([Service] IMediator mediator, [GraphQLNonNullType] string phoneNo)
         {
-            return await mediator.Send(new GetProviderByPhoneNoRequest(phoneNo));
+            return await mediator.Send(new GetProviderByPhoneNoQuery(phoneNo));
         }
 
         public async Task<bool> ProviderExistsByPhoneNo([Service] IMediator mediator, [GraphQLNonNullType] string phoneNo)
         {
-            return await mediator.Send(new ProviderExistsRequest(phoneNo));
+            return await mediator.Send(new ProviderExistsByPhoneNoQuery(phoneNo));
         }
 
         public async Task<List<ProviderServiceOutput>> GetProviderServicesAsync([Service] IMediator mediator, [GraphQLNonNullType] Guid providerId)

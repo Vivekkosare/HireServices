@@ -1,4 +1,5 @@
-﻿using HireServices.Features.ServiceProviders.DTOs;
+﻿using HireServices.Common.Exceptions;
+using HireServices.Features.ServiceProviders.DTOs;
 using HireServices.Features.ServiceProviders.Extensions;
 using HireServices.Features.ServiceProviders.Services;
 using MediatR;
@@ -23,7 +24,7 @@ namespace HireServices.Features.ServiceProviders.Mutations.Handlers
             var provider = await _providerService.GetProviderAsync(request.ProviderId);
             if (provider == null)
             {
-                throw new Exception("Services provider not found to update");
+                throw new NotFoundException("Services provider not found to update");
             }
             provider.ContactInfo = request.UpdateInput.ContactInfoInput.ToContactInfo();
 
@@ -37,7 +38,7 @@ namespace HireServices.Features.ServiceProviders.Mutations.Handlers
             var providerUpdated = await _providerService.UpdateProviderAsync(request.ProviderId, provider);
             if (providerUpdated == null)
             {
-                throw new Exception("Error updating services provider");
+                throw new BusinessRuleException("Error updating services provider");
             }
             return providerUpdated.ToProviderOutput();
         }

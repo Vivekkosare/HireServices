@@ -1,4 +1,5 @@
-﻿using HireServices.Features.Customers.DTOs;
+﻿using HireServices.Common.Exceptions;
+using HireServices.Features.Customers.DTOs;
 using HireServices.Features.Customers.Extensions;
 using HireServices.Features.Customers.Inputs;
 using HireServices.Features.Customers.Services;
@@ -23,7 +24,7 @@ namespace HireServices.Features.Customers.Mutations.Handlers
             var customerToBeUpdated = await _customerService.GetCustomerAsync(request.CustomerId);
             if (customerToBeUpdated == null)
             {
-                throw new Exception("Customer not found");
+                throw new NotFoundException("Customer not found");
             }
             customerToBeUpdated.ContactInfo = customer.ContactInfo;
             customerToBeUpdated.Addresses = customer.Addresses;
