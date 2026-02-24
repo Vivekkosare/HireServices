@@ -26,5 +26,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
+    <!-- Firebase JWT validation via ASP.NET Core's built-in JWT Bearer middleware -->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
+    <!-- HotChocolate authorization: enables [Authorize] directive on resolvers -->
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="14.1.0" />
   </ItemGroup>
 </Project>

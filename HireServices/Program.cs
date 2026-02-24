@@ -18,7 +18,9 @@ using HireServices.Features.ServiceProviders.Queries;
 using HireServices.Features.ServiceProviders.Services;
 using HireServices.Features.ServiceProviders.Types;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -26,6 +28,34 @@ builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.AddServiceDefaults();
+
+// ── Firebase Authentication ───────────────────────────────────────────────────
+// Firebase tokens are standard RS256 JWTs. ASP.NET Core's JwtBearer middleware
+// fetches Firebase's public keys automatically from the Authority URL and
+// validates every incoming Bearer token without any service-account credentials.
+var firebaseProjectId = builder.Configuration["Firebase:ProjectId"];
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        // Google's token authority for this Firebase project
+        options.Authority = $"https://securetoken.google.com/{firebaseProjectId}";
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = $"https://securetoken.google.com/{firebaseProjectId}",
+
+            ValidateAudience = true,
+            ValidAudience = firebaseProjectId, // Must match your Firebase project ID
+
+            ValidateLifetime = true
+        };
+    });
+
+// Required for [Authorize] to work in both ASP.NET Core and HotChocolate
+builder.Services.AddAuthorization();
 
 
 builder.Services.AddGraphQLServer()
@@ -58,7 +88,9 @@ builder.Services.AddGraphQLServer()
     .AddType<ProviderOutput>()
     .AddType<ProviderReviewOutput>()
     .AddType<ProviderServiceOutput>()
-    .AddErrorFilter<GraphQLErrorFilter>();
+    .AddErrorFilter<GraphQLErrorFilter>()
+    // Wires HotChocolate's [Authorize] directive to ASP.NET Core's auth pipeline
+    .AddAuthorization();
 
 
 
@@ -94,6 +126,12 @@ var app = builder.Build();
 
 // app.UseCors("AllowSpecificOrigins");
 app.UseCors("AllowAll");
+
+// Middleware order matters: Authentication → Authorization → GraphQL
+// UseAuthentication reads the Bearer token and populates HttpContext.User.
+// UseAuthorization enforces [Authorize] directives on the GraphQL resolvers.
+app.UseAuthentication();
+app.UseAuthorization();
 
 //if (app.Environment.IsDevelopment())
 //{
